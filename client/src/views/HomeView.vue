@@ -30,26 +30,26 @@ onMounted(() => {
   </main>
     <h2 class = "subtitle" v-if = "isLoggedIn"><center>Hello, {{ session.user.name }}</center> </h2>
     <div class = "columns mt-5" v-if = "isLoggedIn">
-        <div class = "column is-primary">
+        <div class = "column" >
           <h2 class = "subtitle"><center>Today's Stats</center></h2>
-          <h2 class = "mt-2">Distance: 0 feet</h2>
-          <h2 class = "mt-2">Duration: 0.0</h2>
-          <h2 class = "mt-2">AVG Pace: NaN mph</h2>
-          <h2 class = "mt-2">Calories: 0</h2>
+          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
+          <h2 class = "mt-2"><center>Calories: 0</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>Weekly Stats</center></h2>
-          <h2 class = "mt-2">Distance: 0 feet</h2>
-          <h2 class = "mt-2">Duration: 0.0</h2>
-          <h2 class = "mt-2">AVG Pace: NaN mph</h2>
-          <h2 class = "mt-2">Calories: 0</h2>
+          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
+          <h2 class = "mt-2"><center>Calories: 0</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>All Time Stats</center></h2>
-          <h2 class = "mt-2">Distance: 0 feet</h2>
-          <h2 class = "mt-2">Duration: 0.0</h2>
-          <h2 class = "mt-2">AVG Pace: NaN mph</h2>
-          <h2 class = "mt-2">Calories: 0</h2>
+          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
+          <h2 class = "mt-2"><center>Calories: 0</center></h2>
         </div>
     </div>
 </template>
