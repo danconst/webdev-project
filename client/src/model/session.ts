@@ -4,11 +4,12 @@ const session = reactive({
     user: null as User | null,
 
 })
-export interface User{
+interface User{
+    id?: number;
     name: string;
-    handle: string;
-    email: string;
-    admin: string;
+    email?: string;
+    photo?: string;
+    token?: string;
 
 }
 
