@@ -21,6 +21,12 @@ const router = createRouter({
       name: 'statistics',
       component: () => import('../views/StatisticsView.vue'),
       beforeEnter: secureRoute
+    },
+    {
+      path: '/log',
+      name: 'log',
+      component: () => import('../views/Log.vue'),
+      beforeEnter: secureRoute
     }
   ]
 })

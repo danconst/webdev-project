@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { RouterLink } from 'vue-router';
 import { useSession } from '@/model/session';
 const session = useSession();
@@ -19,6 +19,10 @@ onMounted(() => {
     }
   }
 });
+
+watch(session, (newValue, oldValue) => {
+  isLoggedIn.value = !!newValue.user;
+});
 </script>
 
 <template>
@@ -32,24 +36,30 @@ onMounted(() => {
     <div class = "columns mt-5" v-if = "isLoggedIn">
         <div class = "column" >
           <h2 class = "subtitle"><center>Today's Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
-          <h2 class = "mt-2"><center>Calories: 0</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{session.user?.dDist}}</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{session.user?.dDur}}</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.dPace}}</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{session.user?.dCal}}</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>Weekly Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
-          <h2 class = "mt-2"><center>Calories: 0</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{session.user?.wDist}}</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{ session.user?.wDur }}</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.wPace}}</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{ session.user?.wCal }}</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>All Time Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: 0 feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: 0.0</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: NaN mph</center></h2>
-          <h2 class = "mt-2"><center>Calories: 0</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{ session.user?.aDist }}</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{ session.user?.aDur }}</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.aPace}}</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{ session.user?.aCal }}</center></h2>
         </div>
     </div>
 </template>
+<style>
+  .column {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+</style>
