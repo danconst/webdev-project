@@ -51,7 +51,7 @@
           <tbody>
             
             <tr v-for="(workout, index) in workouts" :key="index">
-              <td>{{ new Date()}}</td>
+              <td>{{ new Date()}}</td>  <!--Mystifying issue where this will push 2 dates to the table no matter what. Would really like to use this but might need to go-->
               <td>{{ workout.workoutType }}</td>
               <td>{{ workout.distance }}</td>
               <td>{{ workout.duration }}</td>
