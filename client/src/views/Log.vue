@@ -1,5 +1,7 @@
-  
-  <script lang="ts">
+<script lang="ts">
+/**Can't figure out how to save this data we are collecting... which leads to Friend Activity being hard to do without making a whole seperate posting system, and everything
+ * disappears after leaving the page.
+ */
   import { defineComponent } from 'vue';
   import WorkoutForm from '../components/WorkoutForm.vue';
   

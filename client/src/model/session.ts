@@ -25,6 +25,7 @@ interface User {
 }
 
 const usersData = {
+  /*Make two more users. */
   "users": [
     {
       "id": 1,

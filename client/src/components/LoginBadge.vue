@@ -10,6 +10,7 @@ const session = useSession();
                 (<a @click=" session.user = null">logout</a>)
             </div>
             <div class="navbar-item" v-else>
+                <!--Just make this a dropdown and add two other users that can log in using ID (2 and 3).-->
                 <a class="button is-white" @click="login(1)">
                     <span class="icon">
                         <i class="fas fa-user"></i>
