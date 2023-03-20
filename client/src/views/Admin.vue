@@ -10,7 +10,7 @@
         </thead>
         <tbody>
           <tr v-for="user in users" :key="user.id">
-            <td>{{ user.name }}</td> <!--These all exist in usersData... why does it say it doesnt?-->
+            <td>{{ user.name }}</td> <!--These all exist in usersData... why does it say it doesnt? I tried using get functions but now am confused.-->
             <td>{{ user.email }}</td>
           </tr>
         </tbody>

@@ -25,7 +25,6 @@ interface User {
 }
 
 export const usersData = {
-  /*Make two more users. */
   "users": [
     {
       "id": 1,
