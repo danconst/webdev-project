@@ -1,80 +1,60 @@
-<script lang="ts">
-/**Can't figure out how to save this data we are collecting... which leads to Friend Activity being hard to do without making a whole seperate posting system, and everything
- * disappears after leaving the page.
- */
-  import { defineComponent } from 'vue';
-  import WorkoutForm from '../components/WorkoutForm.vue';
-  
-  interface Workout {
-    date: Date;
-    workoutType: string;
-    distance: number;
-    duration: number;
-    pace: number;
-    calories: number;
-  }
-  
-  export default defineComponent({
-    components: {
-      WorkoutForm,
-    },
-    data() {
-      return {
-        workouts: [] as Workout[],
-      };
-    },
-    methods: {
-      addWorkout(workout: Workout) {
-        console.log(workout)
-        this.workouts.push({
-          ...workout,
-          date: new Date(),
-        });
-        console.log(this.workouts)
-      },
-    },
-  });
-  </script>
-  
-
 
 <template>
-    <div>
-      <WorkoutForm @submit="addWorkout" />
-      <div v-if="workouts.length > 0">
-        <h2 class="title is-2 has-text-centered">Workout Log</h2>
-        <table class="table is-striped is-centered">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Type</th>
-              <th>Distance (km)</th>
-              <th>Duration (min)</th>
-              <th>Pace (min/km)</th>
-              <th>Calories Burnt</th>
-            </tr>
-          </thead>
-          <tbody>
-            
-            <tr v-for="(workout, index) in workouts" :key="index">
-              <td>{{ workout.date }}</td>  <!--Mystifying issue where this will push 2 dates to the table no matter what. Would really like to use this but might need to go-->
-              <td>{{ workout.workoutType }}</td>
-              <td>{{ workout.distance }}</td>
-              <td>{{ workout.duration }}</td>
-              <td>{{ workout.pace }}</td>
-              <td>{{ workout.calories }}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div v-else>
-        <p>No workouts logged yet.</p>
-      </div>
+  <div>
+    <WorkoutForm @submit="addWorkout" />
+    <div v-if="workouts.length > 0">
+      <h2 class="title is-2 has-text-centered">Workout Log</h2>
+      <table class="table is-striped is-centered">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Distance (km)</th>
+            <th>Duration (min)</th>
+            <th>Pace (min/km)</th>
+            <th>Calories Burnt</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(workout, index) in workouts" :key="index">
+            <td>{{ workout.date }}</td>
+            <td>{{ workout.workoutType }}</td>
+            <td>{{ workout.distance }}</td>
+            <td>{{ workout.duration }}</td>
+            <td>{{ workout.pace }}</td>
+            <td>{{ workout.calories }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  </template>
-  <style scoped>
-  table {
-    margin-top: 15px;
-  }
-  </style>
-  
+    <div v-else>
+      <p>No workouts logged yet.</p>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+import WorkoutForm from '../components/WorkoutForm.vue';
+import { addWorkout, getWorkouts } from '@/model/workouts';
+
+export default defineComponent({
+  components: {
+    WorkoutForm,
+  },
+  setup() {
+    const workouts = getWorkouts();
+
+    return {
+      workouts,
+      addWorkout,
+    };
+  },
+});
+</script>
+
+<style scoped>
+table {
+  margin-top: 15px;
+}
+</style>

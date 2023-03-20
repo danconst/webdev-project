@@ -1,7 +1,7 @@
 <template>
-  <div class = "has-text-centered">
-    <div class = "add-workout-container">
-    <a class="button is-info" @click="showForm = true">Add Workout</a>
+  <div class="has-text-centered">
+    <div class="add-workout-container">
+      <a class="button is-info" @click="showForm = true">Add Workout</a>
     </div>
     <div v-if="showForm" class="modal is-active">
       <div class="modal-background" @click="showForm = false"></div>
@@ -58,47 +58,34 @@
 </template>
 
 <script lang="ts">
-  import { defineComponent } from "vue";
-  import fs from "fs";
+import { defineComponent, ref } from "vue";
+import { getWorkouts } from "@/model/workouts";
 
-  interface Workout {
-    distance: number;
-    duration: number;
-    pace: number;
-    calories: number;
-    workoutType: string;
-  }
-
-  export default defineComponent({
-    data() {
-      return {
-        showForm: false,
-        workout: {
-          distance: 0,
-          duration: 0,
-          pace: 0,
-          calories: 0,
-          workoutType: "",
-        } as Workout,
-      };
-    },
-    methods: {
-      submitForm() {
-        this.$emit("submit", this.workout);
-        const data = JSON.stringify(this.workout);
-        fs.writeFileSync("workouts.json", data);
-        this.showForm = false;
-        // read the contents of the file
-        const data2 = fs.readFileSync("workouts.json", "utf8");
-        const workouts = JSON.parse(data2);
-        console.log(workouts);
-      },
-    },
+export default defineComponent({
+  name: "WorkoutForm",
+  emits: ["submit"],
+  setup(_, { emit }) {
+    const showForm = ref(false);
+    const workout = ref({
+    distance: 0,
+    duration: 0,
+    pace: 0,
+    calories: 0,
+    workoutType: "",
   });
+
+    const submitForm = () => {
+      emit("submit", workout.value);
+      showForm.value = false;
+    };
+
+    return { showForm, workout, submitForm };
+  },
+});
 </script>
 
 <style>
-  .add-workout-container {
-    margin-top: 10px;
-  }
+.add-workout-container {
+  margin-top: 10px;
+}
 </style>
