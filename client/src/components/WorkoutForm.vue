@@ -59,6 +59,7 @@
 
 <script lang="ts">
   import { defineComponent } from "vue";
+  import fs from "fs";
 
   interface Workout {
     distance: number;
@@ -84,7 +85,13 @@
     methods: {
       submitForm() {
         this.$emit("submit", this.workout);
+        const data = JSON.stringify(this.workout);
+        fs.writeFileSync("workouts.json", data);
         this.showForm = false;
+        // read the contents of the file
+        const data2 = fs.readFileSync("workouts.json", "utf8");
+        const workouts = JSON.parse(data2);
+        console.log(workouts);
       },
     },
   });

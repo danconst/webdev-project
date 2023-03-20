@@ -24,7 +24,7 @@ interface User {
   aCal?: number;
 }
 
-const usersData = {
+export const usersData = {
   /*Make two more users. */
   "users": [
     {
@@ -45,6 +45,44 @@ const usersData = {
       "aDur": 25,
       "aPace": 25,
       "aCal": 6000,
+    },
+    {
+      "id": 2,
+      "name": "Fish",
+      "email": "fish@email.com",
+      "photo": "none",
+      "dWorkouts": 10,
+      "dDist": 1110,
+      "dDur": 111111110,
+      "dPace": 11111111110,
+      "dCal": 1000000000,
+      "wDist": 200000,
+      "wDur": 20000000000,
+      "wPace": 20000000000,
+      "wCal": 500000000000000,
+      "aDist": 2500000,
+      "aDur": 2500000,
+      "aPace": 25000000,
+      "aCal": 6000,
+    },
+    {
+      "id": 3,
+      "name": "Apple",
+      "email": "apple@email.com",
+      "photo": "none",
+      "dWorkouts": 100,
+      "dDist": 1000,
+      "dDur": 1000,
+      "dPace": 1000,
+      "dCal": 1000,
+      "wDist": 4000,
+      "wDur": 400000,
+      "wPace": 200000,
+      "wCal": 50000000,
+      "aDist": 25000000,
+      "aDur": 250000000,
+      "aPace": 2000005,
+      "aCal": 6,
     }
   ]
 };

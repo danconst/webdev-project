@@ -5,22 +5,38 @@ const session = useSession();
 </script>
 
 <template>
-            <div class="navbar-item" v-if="session.user">
-                Welcome, {{ session.user.name }}
-                (<a @click=" session.user = null">logout</a>)
-            </div>
-            <div class="navbar-item" v-else>
-                <!--Just make this a dropdown and add two other users that can log in using ID (2 and 3).-->
-                <a class="button is-white" @click="login(1)">
-                    <span class="icon">
-                        <i class="fas fa-user"></i>
-                    </span>
-                    <strong>Login</strong>
+    <div class="navbar-item" v-if="session.user">
+    Welcome, {{ session.user.name }}
+    (<a @click="session.user = null">logout</a>)
+</div>
+<div class="navbar-item" v-else>
+    <div class="dropdown is-hoverable">
+        <div class="dropdown-trigger">
+            <a class="button is-white" aria-haspopup="true" aria-controls="dropdown-menu">
+                <span class="icon">
+                    <i class="fas fa-user"></i>
+                </span>
+                <strong>Login</strong>
+                <span class="icon is-small">
+                    <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+            </a>
+        </div>
+        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+            <div class="dropdown-content">
+                <a class="dropdown-item" @click="login(1)">
+                    Dan Constance
+                </a>
+                <a class="dropdown-item" @click="login(2)">
+                    Fish
+                </a>
+                <a class="dropdown-item" @click="login(3)">
+                    Apple
                 </a>
             </div>
-
-
-
+        </div>
+    </div>
+</div>
 </template>
 
 <style scoped>

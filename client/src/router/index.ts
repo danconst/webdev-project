@@ -27,6 +27,12 @@ const router = createRouter({
       name: 'log',
       component: () => import('../views/Log.vue'),
       beforeEnter: secureRoute
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/Admin.vue'),
+      beforeEnter: secureRoute
     }
   ]
 })
