@@ -6,6 +6,7 @@
   import WorkoutForm from '../components/WorkoutForm.vue';
   
   interface Workout {
+    date: Date;
     workoutType: string;
     distance: number;
     duration: number;
@@ -24,9 +25,12 @@
     },
     methods: {
       addWorkout(workout: Workout) {
+        console.log(workout)
         this.workouts.push({
           ...workout,
+          date: new Date(),
         });
+        console.log(this.workouts)
       },
     },
   });
@@ -53,7 +57,7 @@
           <tbody>
             
             <tr v-for="(workout, index) in workouts" :key="index">
-              <td>{{ new Date()}}</td>  <!--Mystifying issue where this will push 2 dates to the table no matter what. Would really like to use this but might need to go-->
+              <td>{{ workout.date }}</td>  <!--Mystifying issue where this will push 2 dates to the table no matter what. Would really like to use this but might need to go-->
               <td>{{ workout.workoutType }}</td>
               <td>{{ workout.distance }}</td>
               <td>{{ workout.duration }}</td>

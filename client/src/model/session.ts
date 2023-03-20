@@ -100,9 +100,5 @@ export function login(id: number) {
 }
 
 export function userNames(){
-  var names: string[] = new Array() 
-  for(let i=0; i<usersData.users.length; i++){
-    names.push(usersData.users[i].name);
-  }
-  return names;
+  return usersData.users.map(x=> x.name)
 };
