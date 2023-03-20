@@ -9,9 +9,8 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="user in users" :key="user.id">
-            <td>{{ user.name }}</td> <!--These all exist in usersData... why does it say it doesnt? I tried using get functions but now am confused.-->
-            <td>{{ user.email }}</td>
+          <tr v-for="name in names"> <!--WHY IS THIS AN ERROR!!!-->
+            <td>{{ name }}</td> 
           </tr>
         </tbody>
       </table>
@@ -19,18 +18,8 @@
   </template>
   
   <script lang="ts">
-  import { defineComponent } from "vue";
-  import { usersData } from "@/model/session";
-  
-  export default defineComponent({
-    name: "AllUsers",
-    setup() {
-      const users = usersData; 
-      return {
-        users,
-      };
-    },
-  });
+  import { userNames } from "@/model/session";
+  const names = userNames();
   </script>
   
   <style>

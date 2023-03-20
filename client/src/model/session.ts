@@ -98,3 +98,11 @@ export function login(id: number) {
     console.error(`User not found with id ${id}`);
   }
 }
+
+export function userNames(){
+  var names: string[] = new Array() 
+  for(let i=0; i<usersData.users.length; i++){
+    names.push(usersData.users[i].name);
+  }
+  return names;
+};
