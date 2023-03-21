@@ -1,6 +1,7 @@
 import { ref } from 'vue';
-
+import { useSession } from './session';
 export interface Workout {
+  user: string;
   date: Date;
   workoutType: string;
   distance: number;
@@ -10,10 +11,12 @@ export interface Workout {
 }
 
 const workouts = ref<Workout[]>([]);
+const session =  useSession();
 
 export function addWorkout(workout: Workout) {
   workouts.value.push({
     ...workout,
+    user: session.user?.name || "Unknown user",
     date: new Date(),
   });
 }

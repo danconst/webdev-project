@@ -1,0 +1,35 @@
+<template>
+    <div class="columns is-multiline">
+      <div class="column is-4" v-for="workout in workouts" :key="workout.user + workout.date">
+        <div class="card">
+          <div class="card-content">
+            <div class="content">
+              <p><strong>User:</strong> {{ workout.user }}</p>
+              <p><strong>Date:</strong> {{ workout.date.toLocaleDateString() }}</p>
+              <p><strong>Workout Type:</strong> {{ workout.workoutType }}</p>
+              <p><strong>Distance:</strong> {{ workout.distance }} km</p>
+              <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
+              <p><strong>Pace:</strong> {{ workout.pace }} min/km</p>
+              <p><strong>Calories:</strong> {{ workout.calories }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script lang="ts">
+  import { defineComponent } from 'vue';
+  import { getWorkouts } from '../model/workouts';
+  
+  const workouts = getWorkouts();
+  
+  export default defineComponent({
+    name: 'WorkoutsView',
+    setup() {
+      return {
+        workouts,
+      };
+    },
+  });
+  </script>

@@ -60,7 +60,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { getWorkouts } from "@/model/workouts";
-
 export default defineComponent({
   name: "WorkoutForm",
   emits: ["submit"],
@@ -73,12 +72,10 @@ export default defineComponent({
     calories: 0,
     workoutType: "",
   });
-
     const submitForm = () => {
       emit("submit", workout.value);
       showForm.value = false;
     };
-
     return { showForm, workout, submitForm };
   },
 });

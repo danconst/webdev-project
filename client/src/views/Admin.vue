@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="name in names">
-          <td>{{ name }}</td> <!--This *SHOULD* display names... but it wont? I dont know why it seems like this should be right!-->
+          <td>{{ name }}</td>
         </tr> 
       </tbody>
     </table>
@@ -20,7 +20,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { usersData, userNames} from "@/model/session";
+import { userNames} from "@/model/session";
 
 export default defineComponent({
   name: "AllUsers",

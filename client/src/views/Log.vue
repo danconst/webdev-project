@@ -1,4 +1,3 @@
-
 <template>
   <div>
     <WorkoutForm @submit="addWorkout" />
@@ -37,14 +36,12 @@
 import { defineComponent } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
 import { addWorkout, getWorkouts } from '@/model/workouts';
-
 export default defineComponent({
   components: {
     WorkoutForm,
   },
   setup() {
     const workouts = getWorkouts();
-
     return {
       workouts,
       addWorkout,

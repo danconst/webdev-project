@@ -33,7 +33,13 @@ const router = createRouter({
       name: 'admin',
       component: () => import('../views/Admin.vue'),
       beforeEnter: secureRoute
-    }
+    },
+    {
+      path: '/friends',
+      name: 'friends',
+      component: () => import('../views/Friends.vue'),
+      beforeEnter: secureRoute
+    },
   ]
 })
 
