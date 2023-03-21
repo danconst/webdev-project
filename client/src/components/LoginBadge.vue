@@ -52,7 +52,12 @@ const session = useSession();
   width: 24px;
   height: 24px;
   margin-right: 8px;
+  border-radius: 50%;
 }
+  .title {
+    text-align: center;
+    margin-top: 20px;
+  }
 
 .user-name {
   font-weight: bold;

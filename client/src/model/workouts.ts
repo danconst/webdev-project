@@ -4,6 +4,7 @@ import userWorkout from '../data/workouts.json';
 import usersData from '../data/users.json';
 
 export interface Workout {
+  userPhoto?: string;
   user: string;
   date: Date;
   workoutType: string;
@@ -50,6 +51,7 @@ for (const user of usersData.users) {
 for (const workout of userWorkout.workouts) {
   workouts.value.push({
     user: workout.user,
+    userPhoto: workout.userPhoto,
     date: new Date(workout.date),
     workoutType: workout.workoutType,
     distance: parseFloat(workout.distance),
@@ -63,6 +65,7 @@ export function addWorkout(workout: Workout) {
   workouts.value.push({
     ...workout,
     user: session.user?.name || "Unknown user",
+    userPhoto: session.user?.photo || "",
     date: new Date(),
   });
   updateUserStats(workout);
