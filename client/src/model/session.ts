@@ -11,19 +11,19 @@ export interface User {
   name: string;
   email?: string;
   photo?: string;
-  dWorkouts?: number;
-  dDist?: number;
-  dDur?: number;
-  dPace?: number;
-  dCal?: number;
-  wDist?: number;
-  wDur?: number;
-  wPace?: number;
-  wCal?: number;
-  aDist?: number;
-  aDur?: number;
-  aPace?: number;
-  aCal?: number;
+  dayWorkouts?: number;
+  dayDist?: number;
+  dayDur?: number;
+  dayPace?: number;
+  dayCal?: number;
+  weekDist?: number;
+  weekDur?: number;
+  weekPace?: number;
+  weekCal?: number;
+  allDist?: number;
+  allDur?: number;
+  allPace?: number;
+  allCal?: number;
   recentWorkouts?: Workout[];
 }
 

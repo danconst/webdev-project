@@ -3,6 +3,7 @@
     <WorkoutForm @submit="addWorkout" />
     <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
+      <div class = "columns is-centered">
       <table class="table is-striped is-centered">
         <thead>
           <tr>
@@ -26,8 +27,12 @@
         </tbody>
       </table>
     </div>
+    </div>
     <div v-else>
-      <p>No workouts logged yet.</p>
+      <div class = "columns is-centered">
+        <span></span>
+      <p class = "mt-3">No workouts logged yet.</p>
+      </div>
     </div>
   </div>
 </template>

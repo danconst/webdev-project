@@ -1,4 +1,5 @@
 <template>
+  <body>
   <div class="container">
     <h1 class="title">All Users</h1>
     <table class="table is-fullwidth">
@@ -18,6 +19,7 @@
       </tbody>
     </table>
   </div>
+  </body>
 </template>
 
 <script setup lang="ts">
@@ -39,4 +41,8 @@ import { userEmails, userNames, userPhotos } from "@/model/session";
     object-fit: cover;
     border-radius: 50%;
   }
+  
+
+  
+
 </style>

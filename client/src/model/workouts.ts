@@ -23,27 +23,27 @@ function updateUserStats(workout: Workout) {
   if (!user) {
     return;
   }
-  user.dDist = (user.dDist || 0) + workout.distance;
-  user.dDur = (user.dDur || 0) + workout.duration;
-  user.dPace = ((user.dPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
-  user.dCal = (user.dCal || 0) + workout.calories;
+  user.dayDist = (user.dayDist || 0) + workout.distance;
+  user.dayDur = (user.dayDur || 0) + workout.duration;
+  user.dayPace = ((user.dayPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
+  user.dayCal = (user.dayCal || 0) + workout.calories;
 
-  user.wDist = (user.wDist || 0) + workout.distance;
-  user.wDur = (user.wDur || 0) + workout.duration;
-  user.wPace = ((user.wPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
-  user.wCal = (user.wCal || 0) + workout.calories;
+  user.weekDist = (user.weekDist || 0) + workout.distance;
+  user.weekDur = (user.weekDur || 0) + workout.duration;
+  user.weekPace = ((user.weekPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
+  user.weekCal = (user.weekCal || 0) + workout.calories;
 
-  user.aDist = (user.aDist || 0) + workout.distance;
-  user.aDur = (user.aDur || 0) + workout.duration;
-  user.aPace = ((user.aPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
-  user.aCal = (user.aCal || 0) + workout.calories;
+  user.allDist = (user.allDist || 0) + workout.distance;
+  user.allDur = (user.allDur || 0) + workout.duration;
+  user.allPace = ((user.allPace || 0) * (workouts.value.length - 1) + workout.pace) / workouts.value.length;
+  user.allCal = (user.allCal || 0) + workout.calories;
 }
 
 for (const user of usersData.users) {
-  user.dDist = 0;
-  user.dDur = 0;
-  user.dPace = 0;
-  user.dCal = 0;
+  user.dayDist = 0;
+  user.dayDur = 0;
+  user.dayPace = 0;
+  user.dayCal = 0;
 }
 
 

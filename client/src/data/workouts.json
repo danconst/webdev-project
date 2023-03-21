@@ -5,10 +5,31 @@
         "user": "Dan Constance",
         "date": "3/20/2023",
         "workoutType": "Run",
-        "distance": "5",
-        "duration": "70",
-        "pace": "0.0714",
-        "calories": "200"
+        "distance": "5280",
+        "duration": "15",
+        "pace": "352",
+        "calories": "350"
+      },
+      {
+        "userPhoto":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq2R0KxdDQmCWmc53zWrsMFceRSkyDagtCWZgvWWT_wQ&s",
+        "user": "Fish",
+        "date": "3/15/2023",
+        "workoutType": "Swim",
+        "distance": "10560",
+        "duration": "30",
+        "pace": "302",
+        "calories": "700"
+      },
+      {
+        "userPhoto":  "https://illustoon.com/photo/7156.png",
+        "user": "Apple",
+        "date": "3/16/2023",
+        "workoutType": "Run",
+        "distance": "15840",
+        "duration": "45",
+        "pace": "352",
+        "calories": "1250"
       }
+      
     ]
   }

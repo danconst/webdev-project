@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">Pace (in min/km)</label>
+              <label class="label">Pace (in ft/min)</label>
               <div class="control">
                 <input class="input" type="number" v-model.number="workout.pace" required>
               </div>
@@ -57,28 +57,31 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-import { getWorkouts } from "@/model/workouts";
-export default defineComponent({
-  name: "WorkoutForm",
-  emits: ["submit"],
-  setup(_, { emit }) {
-    const showForm = ref(false);
-    const workout = ref({
+<script setup lang="ts">
+import { ref } from "vue";
+
+const showForm = ref(false);
+const workout = ref({
+  distance: 0,
+  duration: 0,
+  pace: 0,
+  calories: 0,
+  workoutType: "",
+});
+
+const submitForm = () => {
+  emit("submit", workout.value);
+  showForm.value = false;
+  workout.value = {
     distance: 0,
     duration: 0,
     pace: 0,
     calories: 0,
     workoutType: "",
-  });
-    const submitForm = () => {
-      emit("submit", workout.value);
-      showForm.value = false;
-    };
-    return { showForm, workout, submitForm };
-  },
-});
+  };
+};
+
+const emit  = defineEmits(["submit"]);
 </script>
 
 <style>
