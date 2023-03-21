@@ -1,7 +1,7 @@
 <template>
   <div>
     <WorkoutForm @submit="addWorkout" />
-    <div v-if="workouts.length > 0">
+    <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
       <table class="table is-striped is-centered">
         <thead>
@@ -15,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(workout, index) in workouts" :key="index">
+          <tr v-for="(workout, index) in userWorkouts" :key="index">
             <td>{{ workout.date }}</td>
             <td>{{ workout.workoutType }}</td>
             <td>{{ workout.distance }}</td>
@@ -32,22 +32,17 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
 import { addWorkout, getWorkouts } from '@/model/workouts';
-export default defineComponent({
-  components: {
-    WorkoutForm,
-  },
-  setup() {
-    const workouts = getWorkouts();
-    return {
-      workouts,
-      addWorkout,
-    };
-  },
-});
+import { useSession } from '@/model/session';
+
+const workouts = getWorkouts();
+const session = useSession();
+const userWorkouts = computed(() => {
+      return workouts.value.filter((workout) => workout.user === session.user?.name);
+  });
 </script>
 
 <style scoped>

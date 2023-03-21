@@ -4,7 +4,7 @@
         "id": 1,
         "name": "Dan Constance",
         "email": "constand1@newpaltz.edu",
-        "photo": "none",
+        "photo": "https://clipartix.com/wp-content/uploads/2016/05/Happy-face-clip-art-smiley-face-clipart-3-clipartcow.jpg",
         "dWorkouts": 0,
         "dDist": 0,
         "dDur": 0,
@@ -19,11 +19,12 @@
         "aPace": 25,
         "aCal": 6000
       },
+
       {
         "id": 2,
         "name": "Fish",
         "email": "fish@email.com",
-        "photo": "none",
+        "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq2R0KxdDQmCWmc53zWrsMFceRSkyDagtCWZgvWWT_wQ&s",
         "dWorkouts": 10,
         "dDist": 1110,
         "dDur": 111111110,
@@ -38,11 +39,12 @@
         "aPace": 25000000,
         "aCal": 6000
       },
+
       {
         "id": 3,
         "name": "Apple",
         "email": "apple@email.com",
-        "photo": "none",
+        "photo": "https://illustoon.com/photo/7156.png",
         "dWorkouts": 100,
         "dDist": 1000,
         "dDur": 1000,

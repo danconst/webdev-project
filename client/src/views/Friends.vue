@@ -18,18 +18,7 @@
     </div>
   </template>
   
-  <script lang="ts">
-  import { defineComponent } from 'vue';
-  import { getWorkouts } from '../model/workouts';
-  
-  const workouts = getWorkouts();
-  
-  export default defineComponent({
-    name: 'WorkoutsView',
-    setup() {
-      return {
-        workouts,
-      };
-    },
-  });
+  <script setup lang="ts">
+    import { getWorkouts } from '../model/workouts';
+    const workouts = getWorkouts();
   </script>

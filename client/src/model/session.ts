@@ -43,3 +43,11 @@ export function login(id: number) {
 export function userNames(){
   return usersData.users.map(x=> x.name)
 };
+
+export function userEmails(){
+  return usersData.users.map(x=> x.email)
+};
+
+export function userPhotos(){
+  return usersData.users.map(x=> x.photo)
+};
