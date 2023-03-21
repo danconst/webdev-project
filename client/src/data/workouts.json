@@ -6,7 +6,8 @@
         "workoutType": "Run",
         "distance": "5",
         "duration": "70",
-        "pace": "0.0714"
+        "pace": "0.0714",
+        "calories": "200"
       }
     ]
   }

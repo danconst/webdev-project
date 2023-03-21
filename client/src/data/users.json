@@ -10,11 +10,11 @@
         "dDur": 0,
         "dPace": 0,
         "dCal": 0,
-        "wDist": 20,
+        "wDist": 50,
         "wDur": 20,
         "wPace": 20,
         "wCal": 5000,
-        "aDist": 25,
+        "aDist": 100,
         "aDur": 25,
         "aPace": 25,
         "aCal": 6000
