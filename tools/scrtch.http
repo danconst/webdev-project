@@ -1,0 +1,23 @@
+GET http://localhost:3000/workouts
+
+GET http://localhost::3000/workouts/1
+
+POST htttp://localhost:3000/workouts
+{
+     {
+        "id": "9001",
+        "userPhoto":  "https://clipartix.com/wp-content/uploads/2016/05/Happy-face-clip-art-smiley-face-clipart-3-clipartcow.jpg",
+        "user": "Dan Constance",
+        "date": "3/20/2023",
+        "workoutType": "Run",
+        "distance": "5280",
+        "duration": "15",
+        "pace": "352",
+        "calories": "350"
+      }
+    
+}
+
+DELETE http://localhost:3000/workouts/1
+
+GET http://localhost:3000/workouts/search/run

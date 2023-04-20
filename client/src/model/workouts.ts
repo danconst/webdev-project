@@ -4,6 +4,7 @@ import userWorkout from '../data/workouts.json';
 import usersData from '../data/users.json';
 
 export interface Workout {
+  id: number;
   userPhoto?: string;
   user: string;
   date: Date;
@@ -16,6 +17,11 @@ export interface Workout {
 
 const workouts = ref<Workout[]>([]);
 const session = useSession();
+
+
+function generateRandomId(): number {
+  return Math.floor(1000 + Math.random() * 9000);
+}
 
 
 function updateUserStats(workout: Workout) {
@@ -50,6 +56,7 @@ for (const user of usersData.users) {
 
 for (const workout of userWorkout.workouts) {
   workouts.value.push({
+    id: workout.id,
     user: workout.user,
     userPhoto: workout.userPhoto,
     date: new Date(workout.date),
@@ -62,8 +69,14 @@ for (const workout of userWorkout.workouts) {
 }
 
 export function addWorkout(workout: Workout) {
+  let randomId = generateRandomId();
+  while (workouts.value.some(workout => workout.id === randomId)) {
+    randomId = generateRandomId();
+  }
+
   workouts.value.push({
     ...workout,
+    id: randomId,
     user: session.user?.name || "Unknown user",
     userPhoto: session.user?.photo || "",
     date: new Date(),
