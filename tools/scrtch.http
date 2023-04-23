@@ -1,8 +1,8 @@
-GET http://localhost:3000/workouts
+GET http://localhost:3000/
 
-GET http://localhost::3000/workouts/1
+GET http://localhost::3000/api/v1/workouts
 
-POST htttp://localhost:3000/workouts
+POST http://localhost:3000/api/v1/workouts
 {
      {
         "id": "9001",
@@ -18,6 +18,6 @@ POST htttp://localhost:3000/workouts
     
 }
 
-DELETE http://localhost:3000/workouts/1
+DELETE http://localhost:3000/api/v1/workouts/1
 
-GET http://localhost:3000/workouts/search/run
+GET http://localhost:3000/api/b1/workouts/search/9001

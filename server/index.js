@@ -6,19 +6,20 @@ const app = express()
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;
 
-// Middleware
 app
     .use(express.json())
     .use(express.static(path.join(__dirname, '../client/dist')))
 
-// Actions
 app
-    .get('/', (req, res) => {
+    .get('/api/v1/', (req, res) => {
         res.send('Hello World! From Express')
     })
-    // Use the workouts router as middleware for the /workouts endpoint
-    .use('/workouts', workouts)
+    .use('/api/v1/products', workouts)
     
 app.listen(port, () => 
     console.log(`Server running at http://${hostname}:${port}/`)
 );
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'))
+})
