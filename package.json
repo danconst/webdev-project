@@ -1,11 +1,11 @@
 {
-  "name": "web-devproject",
+  "name": "web-dev-spring-2023",
   "version": "1.0.0",
   "description": "",
   "license": "BSD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/constand1/webdev-project"
+    "url": "git+https://github.com/jewpaltz/web-dev-spring-2023.git"
   },
   "private": true,
   "workspaces": [
