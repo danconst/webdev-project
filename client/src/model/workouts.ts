@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { useSession } from './session';
 import userWorkout from '../data/workouts.json';
 import usersData from '../data/users.json';
+import { api } from './myFetch';
 
 export interface Workout {
   id: string;
@@ -85,5 +86,10 @@ export function addWorkout(workout: Workout) {
 }
 
 export function getWorkouts() {
+
+  api('products').then(res => {
+    console.log(res);
+  });
+
   return workouts;
 }
