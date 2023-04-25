@@ -1,9 +1,12 @@
 import { reactive } from "vue";
 import usersData from "../data/users.json";
 import type { Workout } from "./workouts";
+import * as myFetch from "./myFetch";
+
 
 const session = reactive({
   user: null as User | null,
+  isLoading: false,
 });
 
 export interface User {
@@ -26,6 +29,19 @@ export interface User {
   allCal?: number;
   recentWorkouts?: Workout[];
 }
+
+
+export function api(url: string) {
+  session.isLoading = true;
+  return myFetch.api(url)
+      .catch(err => {
+          console.error(err);
+      })
+      .finally(() => {
+          session.isLoading = false;
+      })
+}
+
 
 export function useSession() {
   return session;

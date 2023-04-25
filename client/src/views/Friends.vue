@@ -30,10 +30,10 @@
 
 <script setup lang="ts">
   import { getWorkouts } from '../model/workouts';
-  import { unref } from 'vue'; // <-- import the unref function
+  import { unref } from 'vue'; 
 
   const workouts = getWorkouts();
-  const reversedWorkouts = unref(workouts).slice().reverse(); // <-- unwrap and reverse the workouts array
+  const reversedWorkouts = (await unref(workouts)).slice().reverse(); 
 </script>
 <style>
 .media-left{
@@ -47,5 +47,3 @@
 margin-top: 2.5rem;
 max-width: 500px;
 }
-
-</style>
