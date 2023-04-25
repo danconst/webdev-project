@@ -4,7 +4,7 @@ import userWorkout from '../data/workouts.json';
 import usersData from '../data/users.json';
 
 export interface Workout {
-  id: number;
+  id: string;
   userPhoto?: string;
   user: string;
   date: Date;
@@ -19,10 +19,10 @@ const workouts = ref<Workout[]>([]);
 const session = useSession();
 
 
-function generateRandomId(): number {
-  return Math.floor(1000 + Math.random() * 9000);
+function generateRandomId(): string {
+  const randomNumber = Math.floor(1000 + Math.random() * 9000);
+  return String(randomNumber);
 }
-
 
 function updateUserStats(workout: Workout) {
   const user = session.user;
