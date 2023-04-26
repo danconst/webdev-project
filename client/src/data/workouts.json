@@ -1,7 +1,7 @@
 {
     "workouts": [
       {
-        "id": "1",
+        "id": "0001",
         "userPhoto":  "https://clipartix.com/wp-content/uploads/2016/05/Happy-face-clip-art-smiley-face-clipart-3-clipartcow.jpg",
         "user": "Dan Constance",
         "date": "3/20/2023",
@@ -12,7 +12,7 @@
         "calories": "350"
       },
       {
-        "id": "2",
+        "id": "0002",
         "userPhoto":  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTq2R0KxdDQmCWmc53zWrsMFceRSkyDagtCWZgvWWT_wQ&s",
         "user": "Fish",
         "date": "3/15/2023",
@@ -23,7 +23,7 @@
         "calories": "700"
       },
       {
-        "id": "3",
+        "id": "0003",
         "userPhoto":  "https://illustoon.com/photo/7156.png",
         "user": "Apple",
         "date": "3/16/2023",

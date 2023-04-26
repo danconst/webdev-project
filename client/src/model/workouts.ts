@@ -1,7 +1,7 @@
 import { ref } from 'vue';
 import { useSession } from './session';
+import userWorkout from '../data/workouts.json';
 import usersData from '../data/users.json';
-import { api } from './session';
 
 export interface Workout {
   id: string;
@@ -54,22 +54,19 @@ for (const user of usersData.users) {
 
 
 
-api('workouts').then((response: Workout[]) => {
-  workouts.value = response.map(workout => {
-    return {
-      id: workout.id,
-      user: workout.user,
-      userPhoto: workout.userPhoto,
-      date: new Date(workout.date),
-      workoutType: workout.workoutType,
-      distance: typeof workout.distance === 'number' ? workout.distance : parseFloat(workout.distance),
-      duration: typeof workout.duration === 'number' ? workout.duration : parseFloat(workout.duration),
-      pace: typeof workout.pace === 'number' ? workout.pace : parseFloat(workout.pace),
-      calories: typeof workout.calories === 'number' ? workout.calories : parseInt(workout.calories),
-    };
+for (const workout of userWorkout.workouts) {
+  workouts.value.push({
+    id: workout.id,
+    user: workout.user,
+    userPhoto: workout.userPhoto,
+    date: new Date(workout.date),
+    workoutType: workout.workoutType,
+    distance: parseFloat(workout.distance),
+    duration: parseFloat(workout.duration),
+    pace: parseFloat(workout.pace),
+    calories: parseInt(workout.calories),
   });
-});
-
+}
 
 export function addWorkout(workout: Workout) {
   let randomId = generateRandomId();
@@ -87,6 +84,6 @@ export function addWorkout(workout: Workout) {
   updateUserStats(workout);
 }
 
-export function getWorkouts(): Promise<Workout[]> {
-  return api('workouts')
+export function getWorkouts() {
+  return workouts;
 }
