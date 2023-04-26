@@ -1,5 +1,5 @@
 <template>
-  <div class="row" v-for="workout in reversedWorkouts" :key="workout.user + workout.date">
+  <div class="row" v-for="(workout, index) in workouts" :key="index">
     <div class="columns is-mobile is-centered">
       <div class="card">
         <div class="card-content">
@@ -13,7 +13,7 @@
               </figure>
             </div>
             <div class="media-content">
-              <p><strong>Date:</strong> {{ workout.date.toLocaleDateString() }}</p>
+              <p><strong>Date:</strong> {{ workout.date }}</p>
               <p><strong>Workout Type:</strong> {{ workout.workoutType }}</p>
               <p><strong>Distance:</strong> {{ workout.distance }} ft</p>
               <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
@@ -29,13 +29,17 @@
 
 
 <script setup lang="ts">
-  import { getWorkouts } from '../model/workouts';
-  import { unref } from 'vue'; // <-- import the unref function
+  import { getWorkouts, type Workout } from '../model/workouts';
+  import { ref } from 'vue'; 
 
-  const workouts = getWorkouts();
-  const reversedWorkouts = unref(workouts).slice().reverse(); // <-- unwrap and reverse the workouts array
+  const workouts = ref<Workout[]>([]);
+      getWorkouts().then((data) => {
+      workouts.value = data;
+  });
+
 </script>
-<style>
+
+<style scoped>
 .media-left{
   width: 50px;
   height: 50px;
@@ -47,5 +51,6 @@
 margin-top: 2.5rem;
 max-width: 500px;
 }
+
 
 </style>

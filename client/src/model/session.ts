@@ -1,9 +1,14 @@
 import { reactive } from "vue";
 import usersData from "../data/users.json";
 import type { Workout } from "./workouts";
-
+import * as myFetch from "./myFetch";
 const session = reactive({
   user: null as User | null,
+  isLoading: false,
+  messages: [] as {
+      msg: string,
+      type: "success" | "error" | "warning" | "info",
+  }[],
 });
 
 export interface User {
@@ -51,3 +56,18 @@ export function userEmails(){
 export function userPhotos(){
   return usersData.users.map(x=> x.photo)
 };
+
+export function api(url: string) {
+  session.isLoading = true;
+  return myFetch.api(url)
+      .catch(err => {
+          console.error(err);
+          session.messages.push({
+              msg: err.message ?? JSON.stringify(err),
+              type: "error",
+          })
+      })
+      .finally(() => {
+          session.isLoading = false;
+      })
+}

@@ -10,6 +10,13 @@ app
     .use(express.json())
     .use(express.static(path.join(__dirname, '../client/dist')))
 
+    .use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*')
+        res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+        res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS')
+        next()
+    })
+
 app
     .get('/api/v1/', (req, res) => {
         res.send('Hello World! From Express')
