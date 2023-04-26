@@ -37,22 +37,22 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
-import { computed } from 'vue';
+
+import { computed, ref } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
+import type { Workout } from '@/model/workouts';
 import { addWorkout, getWorkouts } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
-const workouts = getWorkouts();
+const workouts = ref<Workout[]>([]);
 const session = useSession();
+const fetchWorkouts = async () => {
+  workouts.value = await getWorkouts();
+};
+fetchWorkouts(); 
 const userWorkouts = computed(() => {
-      return workouts.value.filter((workout) => workout.user === session.user?.name);
-  });
+  return workouts.value.filter((workout) => workout.user === session.user?.name);
+});
 </script>
-
-<style scoped>
-table {
-  margin-top: 15px;
-}
-</style>
-
