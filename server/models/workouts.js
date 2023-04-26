@@ -1,31 +1,31 @@
 const data = require('../data/workouts.json');
 
-function getWorkouts(){
-    return data.workouts;
+function getWorkouts() {
+  return data.workouts;
 }
 
-function getWorkoutById(id){
+function getWorkoutById(id) {
     return data.workouts.find(workout => workout.id === id);
 }
 
 function addWorkout(workout) {
-    const index = data.workouts.findIndex(w => w.id === workout.id);
-    data.workouts[index] = workout;
+    workout.id = data.workouts.length + 1;
+    data.workouts.push(workout);
 }
 
 function updateWorkout(workout) {
     const index = data.workouts.findIndex(w => w.id === workout.id);
     data.workouts[index] = workout;
 }
+
 function deleteWorkout(id) {
     const index = data.workouts.findIndex(w => w.id === id);
     data.workouts.splice(index, 1);
 }
 
-function searchWorkouts(searchTerm){
-    return data.workouts.filter(workout => {
-        return  workout.user.toLowerCase().includes(searchTerm.toLowerCase())  ||
-            workout.workoutType.toLowerCase().includes(searchTerm.toLowerCase())  
+function searchWorkouts(id) {
+    return data.workouts.filter(workout=> {
+        return  product.id.includes(id)
     })
 }
 
@@ -35,5 +35,5 @@ module.exports = {
     addWorkout,
     updateWorkout,
     deleteWorkout,
-    searchWorkouts,
-}
+    searchWorkouts
+};
