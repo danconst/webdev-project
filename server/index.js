@@ -30,3 +30,14 @@ app.listen(port, () =>
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../client/dist/index.html'))
 })
+
+app
+    .use((err, req, res, next) => {
+        console.error(err);
+        const msg = {
+            status: err.code || 500,
+            error: err.message || 'Internal Server Error',
+            isSuccess: false
+        }
+        res.status(msg.status).json(msg)
+    })
