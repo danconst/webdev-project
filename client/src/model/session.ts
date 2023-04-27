@@ -63,7 +63,7 @@ export function api(url: string) {
       .catch(err => {
           console.error(err);
           session.messages.push({
-              msg: err.message ?? JSON.stringify(err),
+            msg: err.message  ?? JSON.stringify(err),
               type: "error",
           })
       })
