@@ -48,10 +48,9 @@ import { useSession } from '@/model/session';
 
 const workouts = ref<Workout[]>([]);
 const session = useSession();
-const fetchWorkouts = async () => {
-  workouts.value = await getWorkouts();
-};
-fetchWorkouts(); 
+getWorkouts().then((data) => {
+    workouts.value = data.data;
+});
 const userWorkouts = computed(() => {
   return workouts.value.filter((workout) => workout.user === session.user?.name);
 });

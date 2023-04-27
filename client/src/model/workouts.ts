@@ -2,6 +2,7 @@ import { ref } from 'vue';
 import { useSession } from './session';
 import { api } from "./session";
 import usersData from '../data/users.json';
+import type { DataListEnvelope } from "./myFetch";
 
 export interface Workout {
   id: string;
@@ -83,6 +84,6 @@ export function addWorkout(workout: Workout) {
   updateUserStats(workout);
 }
 
-export function getWorkouts(): Promise<Workout[]> { 
+export function getWorkouts(): Promise<DataListEnvelope<Workout>> {  
   return api('workouts');
 }
