@@ -33,7 +33,6 @@ router
         console.log( req.headers );
 
         model.addWorkout(workout);
-        res.send(workout);
         const data = { data: workout, isSuccess: true };
         res.send(data)
     })
