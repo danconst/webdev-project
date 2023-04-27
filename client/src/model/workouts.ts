@@ -2,7 +2,7 @@ import { ref } from 'vue';
 import { useSession } from './session';
 import { api } from "./session";
 import usersData from '../data/users.json';
-import type { DataListEnvelope } from "./myFetch";
+import type { DataEnvelope, DataListEnvelope } from "./myFetch";
 
 export interface Workout {
   id: string;
@@ -19,10 +19,6 @@ export interface Workout {
 const workouts = ref<Workout[]>([]);
 const session = useSession();
 
-function generateRandomId(): string {
-  const randomNumber = Math.floor(1000 + Math.random() * 9000);
-  return String(randomNumber);
-}
 
 function updateUserStats(workout: Workout) {
   const user = session.user;
@@ -52,38 +48,17 @@ for (const user of usersData.users) {
   user.dayCal = 0;
 }
 
-api('workouts').then((workoutsData) => {
-  for (const workout of workoutsData) {
-    workouts.value.push({
-      id: String(workout.id),
-      user: workout.user,
-      userPhoto: workout.userPhoto,
-      date: new Date(workout.date),
-      workoutType: workout.workoutType,
-      distance: parseFloat(workout.distance),
-      duration: parseFloat(workout.duration),
-      pace: parseFloat(workout.pace),
-      calories: parseInt(workout.calories),
-    });
-  }
-});
-
-export function addWorkout(workout: Workout) {
-  let randomId = generateRandomId();
-  while (workouts.value.some(workout => workout.id === randomId)) {
-    randomId = generateRandomId();
-  }
-
-  workouts.value.push({
-    ...workout,
-    id: randomId,
-    user: session.user?.name || "Unknown user",
-    userPhoto: session.user?.photo || "",
-    date: new Date(),
-  });
-  updateUserStats(workout);
+export function addWorkout(workout: Workout): Promise<DataEnvelope<Workout>> {
+  return api('workouts', workout)
 }
+
 
 export function getWorkouts(): Promise<DataListEnvelope<Workout>> {  
   return api('workouts');
+}
+
+export function getWorkout(id: number): Promise<DataEnvelope<Workout>> {
+
+  return api(`workouts/${id}`)
+
 }

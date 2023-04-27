@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WorkoutForm @submit="addWorkout" />
+    <WorkoutForm />
     <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
       <div class = "columns is-centered">
@@ -46,8 +46,10 @@ import type { Workout } from '@/model/workouts';
 import { addWorkout, getWorkouts } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
+
 const workouts = ref<Workout[]>([]);
 const session = useSession();
+
 getWorkouts().then((data) => {
     workouts.value = data.data;
 });

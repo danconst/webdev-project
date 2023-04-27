@@ -29,14 +29,14 @@
 
 
 <script setup lang="ts">
-  import { getWorkouts, type Workout } from '../model/workouts';
+  import { getWorkouts, type Workout, } from '../model/workouts';
+  import type { DataListEnvelope } from '@/model/myFetch';
   import { ref } from 'vue'; 
 
   const workouts = ref<Workout[]>([]);
-      getWorkouts().then((data) => {
-      workouts.value = data;
+  getWorkouts().then((data: DataListEnvelope<Workout>) => {
+    workouts.value = data.data;
   });
-
 </script>
 
 <style scoped>

@@ -58,30 +58,26 @@
 </template>
 
 <script setup lang="ts">
+
+import type { Workout } from "@/model/workouts";
 import { ref } from "vue";
+import { useRoute } from "vue-router";
+import { addWorkout } from '@/model/workouts';
+import { useSession } from '@/model/session';
 
+const session = useSession();
+const route = useRoute();
+
+const workout = ref<Workout>({} as Workout);
 const showForm = ref(false);
-const workout = ref({
-  distance: 0,
-  duration: 0,
-  pace: 0,
-  calories: 0,
-  workoutType: "",
-});
 
+
+workout.value.user = session.user?.name ?? ''
 const submitForm = () => {
-  emit("submit", workout.value);
+  addWorkout(workout.value).then((data) =>
+  console.log(data))
   showForm.value = false;
-  workout.value = {
-    distance: 0,
-    duration: 0,
-    pace: 0,
-    calories: 0,
-    workoutType: "",
-  };
 };
-
-const emit  = defineEmits(["submit"]);
 </script>
 
 <style>

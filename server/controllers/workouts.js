@@ -19,7 +19,7 @@ router
 
     .get('/:id', (req, res) => {
         const id = req.params.id;
-        const workout = model.getWorkoutById();
+        const workout = model.getWorkoutById(id);
         const data = { data: workout, isSuccess: true };
         res.send(data)
     })
@@ -40,7 +40,6 @@ router
     .patch('/:id', (req, res) => {
         const workout = req.body;
         model.updateWorkout(workout);
-        res.send(workout);
         const data = { data: workout, isSuccess: true };
         res.send(data)
     })
@@ -48,7 +47,6 @@ router
     .delete('/:id', (req, res) => {
         const id = req.params.id; 
         model.deleteWorkout(id);
-        res.send({ id: id });
         const data = { data: id, isSuccess: true };
         res.send(data)
     })
