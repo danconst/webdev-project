@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useSession, login } from '@/model/session';
+import { useSession, useLogin } from '@/model/session';
 const session = useSession();
 </script>
 
@@ -27,13 +27,13 @@ const session = useSession();
       </div>
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a class="dropdown-item" @click="login(1)">
+          <a class="dropdown-item" @click="useLogin(1)">
             Dan Constance
           </a>
-          <a class="dropdown-item" @click="login(2)">
+          <a class="dropdown-item" @click="useLogin(2)">
             Fish
           </a>
-          <a class="dropdown-item" @click="login(3)">
+          <a class="dropdown-item" @click="useLogin(3)">
             Apple
           </a>
         </div>

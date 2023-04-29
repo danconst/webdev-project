@@ -51,6 +51,8 @@ function secureRoute (to : RouteLocationNormalized, from : RouteLocationNormaliz
   if (session.user) {
       next()
   } else { 
-      next('/login')
+    if(!session.redirectUrl && to.path != '/login') {
+      session.redirectUrl = to.fullPath;
+    }
   }
 }

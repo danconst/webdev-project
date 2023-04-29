@@ -72,8 +72,10 @@ const workout = ref<Workout>({} as Workout);
 const showForm = ref(false);
 
 
-workout.value.user = session.user?.name ?? ''
+
 const submitForm = () => {
+  workout.value.user = session.user?.name ?? ''
+  workout.value.userPhoto = session.user?.photo ?? ''
   addWorkout(workout.value).then((data) =>
   console.log(data))
   showForm.value = false;

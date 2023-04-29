@@ -1,4 +1,5 @@
 import { reactive } from "vue";
+import { useRouter } from "vue-router";
 import usersData from "../data/users.json";
 import type { Workout } from "./workouts";
 import * as myFetch from "./myFetch";
@@ -9,6 +10,7 @@ const session = reactive({
       msg: string,
       type: "success" | "error" | "warning" | "info",
   }[],
+  redirectUrl: null as string | null,
 });
 
 export interface User {
@@ -37,13 +39,16 @@ export function useSession() {
 }
 
 
-export function login(id: number) {
+export function useLogin(id: number) {
+  const router = useRouter();
   const user = usersData.users.find((u) => u.id === id);
   if (user) {
     session.user = user;
   } else {
     console.error(`User not found with id ${id}`);
   }
+  router.push(session.redirectUrl ?? "/");
+  session.redirectUrl = null;
 }
 
 export function userNames(){
