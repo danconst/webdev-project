@@ -4,6 +4,9 @@ GET http://localhost:3000/
 ###
 GET http://localhost:3000/api/v1/workouts/
 
+###
+GET http://localhost:3000/api/v1/workouts/getWorkoutMongo
+
 
 ###
 POST http://localhost:3000/api/v1/workouts/
