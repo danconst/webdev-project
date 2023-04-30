@@ -1,7 +1,23 @@
 const data = require('../data/workouts.json');
+const { connect, ObjectId } = require('./mongo');
+
+const COLLECTION_NAME = 'Workout';
+
+
+async function collection() {
+  const db = await connect();
+  return db.collection(COLLECTION_NAME);
+}
 
 function getWorkouts() {
   return data.workouts;
+}
+
+async function getWorkoutMongo() {
+  console.log('hello!')
+  const col = await collection();
+  const items = await col.find().toArray();
+  return items;
 }
 
 function getWorkoutById(id) {
@@ -31,6 +47,7 @@ function searchWorkouts(id) {
   }
 
 module.exports = {
+    getWorkoutMongo,
     getWorkouts,
     getWorkoutById,
     addWorkout,

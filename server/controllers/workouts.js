@@ -17,6 +17,14 @@ router
         res.send(data)
     })
 
+    .get("/getWorkoutMongo", (req, res, next) => {
+        model.getWorkoutMongo()
+            .then(list => {
+                const data = { data: list, total: Object.keys(list).length, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+      })
+
     .get('/:id', (req, res) => {
         const id = req.params.id;
         const workout = model.getWorkoutById(id);

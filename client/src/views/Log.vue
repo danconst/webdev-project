@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WorkoutForm />
+    <WorkoutForm :workouts="workouts"/>
     <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
       <div class = "columns is-centered">
@@ -39,21 +39,25 @@
 
 
 <script setup lang="ts">
-
 import { computed, ref } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
 import type { Workout } from '@/model/workouts';
 import { addWorkout, getWorkouts } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
-
 const workouts = ref<Workout[]>([]);
 const session = useSession();
 
 getWorkouts().then((data) => {
-    workouts.value = data.data;
+  workouts.value = data.data;
 });
+
 const userWorkouts = computed(() => {
   return workouts.value.filter((workout) => workout.user === session.user?.name);
 });
+
+async function addNewWorkout(newWorkout: Workout) {
+  await addWorkout(newWorkout);
+  workouts.value.push(newWorkout);
+}
 </script>
