@@ -59,32 +59,27 @@
 
 <script setup lang="ts">
 
-import { getWorkouts, type Workout } from "@/model/workouts";
-import { ref, watch } from "vue";
+import type { Workout } from "@/model/workouts";
+import { ref } from "vue";
 import { useRoute } from "vue-router";
 import { addWorkout } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
-const props = defineProps<{
-        workouts?: any;
-}>();
-
 const session = useSession();
+const route = useRoute();
+
 const workout = ref<Workout>({} as Workout);
 const showForm = ref(false);
 
- async function submitForm(){
+
+
+const submitForm = () => {
   workout.value.user = session.user?.name ?? ''
   workout.value.userPhoto = session.user?.photo ?? ''
-  await addWorkout(workout.value).then((data) => console.log(data))
+  addWorkout(workout.value).then((data) =>
+  console.log(data))
   showForm.value = false;
 };
-  watch(() => props.workouts, (newVal) => {
-    if (newVal != undefined) {
-        workout.value = newVal;
-      }
-  });
-
 </script>
 
 <style>
