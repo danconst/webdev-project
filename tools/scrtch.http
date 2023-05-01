@@ -1,15 +1,13 @@
-###
-GET http://localhost:3000/
+@port=3070
 
 ###
-GET http://localhost:3000/api/v1/workouts/
+GET http://localhost:{{port}}/
 
 ###
-GET http://localhost:3000/api/v1/workouts/getWorkoutMongo
-
+GET http://localhost:{{port}}/api/v1/workouts/
 
 ###
-POST http://localhost:3000/api/v1/workouts/
+POST http://localhost:{{port}}/api/v1/workouts/
 Content-Type: application/json
 some-other-header: with my very personal information
 
@@ -24,7 +22,10 @@ some-other-header: with my very personal information
 "calories": "350"
 }
 ###
-DELETE http://localhost:3000/api/v1/workouts/1
+DELETE http://localhost:{{port}}/api/v1/workouts/644f2695eac9fc98cdea6534
 
 ###
-GET http://localhost:3000/api/v1/workouts/search/1
+GET http://localhost:{{port}}/api/v1/workouts/search/1
+
+###
+POST http://localhost:3070/api/v1/workouts/seed

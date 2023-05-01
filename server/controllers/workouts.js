@@ -1,62 +1,69 @@
 const express = require('express');
 const model = require('../models/workouts');
 const router = express.Router();
-
 router
-    .get('/', (req, res) => {
-        const list = model.getWorkouts();
-        const data = { data: list, total: list.length, isSuccess: true };
-        res.send(data)
-    })
-
-    .get('/search/:q', (req, res) => {
-        const term = req.params.q;
-        console.log({ term });
-        const list = model.searchWorkouts(term);
-        const data = { data: list, total: list.length, isSuccess: true };
-        res.send(data)
-    })
-
-    .get("/getWorkoutMongo", (req, res, next) => {
-        model.getWorkoutMongo()
+    .get('/', (req, res, next) => {
+        model.getAll(+req.query.page, +req.query.pageSize)
             .then(list => {
-                const data = { data: list, total: Object.keys(list).length, isSuccess: true };
+                const data = { data: list.items, total: list.total, isSuccess: true };
                 res.send(data)
             }).catch(next);
-      })
-
-    .get('/:id', (req, res) => {
-        const id = req.params.id;
-        const workout = model.getWorkoutById(id);
-        const data = { data: workout, isSuccess: true };
-        res.send(data)
-    })
-    
-    .post('/', (req, res) => {
-        const workout = req.body;
-
-        console.log({ workout });
-        console.log( req.query );
-        console.log( req.params );
-        console.log( req.headers );
-
-        model.addWorkout(workout);
-        const data = { data: workout, isSuccess: true };
-        res.send(data)
     })
 
-    .patch('/:id', (req, res) => {
-        const workout = req.body;
-        model.updateWorkout(workout);
-        const data = { data: workout, isSuccess: true };
-        res.send(data)
+
+    .get('/search/:q', (req, res, next) => {
+
+        model.search(req.params.q, +req.query.page, +req.query.pageSize)
+            .then(list => {
+                const data = { data: list.items, total: list.total, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+
     })
 
-    .delete('/:id', (req, res) => {
-        const id = req.params.id; 
-        model.deleteWorkout(id);
-        const data = { data: id, isSuccess: true };
-        res.send(data)
+    .get('/:id', (req, res, next) => {
+
+        model.getById(req.params.id)
+            .then(x => {
+                const data = { data: x, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+
     })
+
+    .post('/', (req, res, next) => {
+        model.add(req.body)
+        .then(x => {
+            const data = { data: x, isSuccess: true };
+            res.send(data)
+        }).catch(next);
+    })
+
+    .patch('/', (req, res, next) => {
+
+        model.update(req.body)
+            .then(x => {
+                const data = { data: x, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+
+    })
+
+    .delete('/:id', (req, res, next) => {
+
+        model.deleteItem(req.params.id)
+            .then(x => {
+                const data = { data: x, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+    })
+
+    .post('/seed', (req, res, next) => {
+        model.seed()
+            .then(x => {
+                const data = { data: x, isSuccess: true };
+                res.send(data)
+            }).catch(next);
+    });
 
 module.exports = router;

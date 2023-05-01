@@ -9,49 +9,73 @@ async function collection() {
   return db.collection(COLLECTION_NAME);
 }
 
-function getWorkouts() {
-  return data.workouts;
-}
-
-async function getWorkoutMongo() {
-  console.log('hello!')
+async function getAll(page = 1, pageSize = 30) {
   const col = await collection();
-  const items = await col.find().toArray();
-  return items;
+  const items = await col.find().skip((page-1) * pageSize).limit(pageSize).toArray();
+  const total = await col.countDocuments();
+  return { items, total };
 }
 
-function getWorkoutById(id) {
-    return data.workouts.find(workout => workout.id === id);
-  }
-  
 
-function addWorkout(workout) {
-    workout.id = String(data.workouts.length + 1);
-    data.workouts.push(workout);
-}
-  
-function updateWorkout(workout) {
-    const index = data.workouts.findIndex(w => w.id === workout.id);
-    data.workouts[index] = workout;
- }
-
- function deleteWorkout(id) {
-    const index = data.workouts.findIndex(w => w.id === id);
-    data.workouts.splice(index, 1);
+async function getById(id) {
+  const col = await collection();
+  const item = await col.findOne({ _id: new ObjectId(id) });
+  return item;
 }
 
-function searchWorkouts(id) {
-    return data.workouts.filter(workout => {
-      return workout.id === id;
-    });
-  }
 
+async function add(item) {
+  const col = await collection();
+
+  const result = await col.insertOne(item);
+
+  item.id = result.insertedId;
+  return item;
+}
+
+
+async function update(item) {
+
+  console.log(item);
+  const col = await collection();
+  const result = await col.findOneAndUpdate(
+      { _id: new ObjectId(item.id) },
+      { $set: item },
+      { returnDocument: 'after' }
+  );
+
+  return result.value;
+}
+
+async function deleteItem(id) {
+  const col = await collection();
+  const result = await col.deleteOne({ _id: new ObjectId(id) });
+  return result.deletedCount;
+}
+
+async function search(searchTerm, page = 1, pageSize = 30) {
+  const col = await collection();
+  const query = {
+      $or: [
+          { id: { $regex: searchTerm, $options: 'i' } },
+      ]
+  };
+  const items = await col.find(query).skip((page - 1) * pageSize).limit(pageSize).toArray();
+  const total = await col.countDocuments(query);
+  return { items, total };
+}
+
+async function seed() {
+    const col = await collection();
+    const result = await col.insertMany(data.workouts);
+    return result.insertedCount;
+}
 module.exports = {
-    getWorkoutMongo,
-    getWorkouts,
-    getWorkoutById,
-    addWorkout,
-    updateWorkout,
-    deleteWorkout,
-    searchWorkouts
+    getAll,
+    getById,
+    add,
+    update,
+    deleteItem,
+    search,
+    seed
 };
