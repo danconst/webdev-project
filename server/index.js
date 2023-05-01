@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const path = require('path')
 const workouts = require('./controllers/workouts')
+const users = require('./controllers/users')
 const app = express()
 
 const hostname = '127.0.0.1';
@@ -23,6 +24,7 @@ app
         res.send('Hello World! From Express')
     })
     .use('/api/v1/workouts', workouts)
+    .use('/api/v1/users', users)
     
 app.listen(port, () => 
     console.log(`Server running at http://${hostname}:${port}/`)

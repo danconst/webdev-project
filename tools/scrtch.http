@@ -29,3 +29,10 @@ GET http://localhost:{{port}}/api/v1/workouts/search/
 
 ###
 POST http://localhost:3070/api/v1/workouts/seed
+
+
+###
+POST http://localhost:3070/api/v1/users/seed
+
+###
+GET http://localhost:3070/api/v1/users
