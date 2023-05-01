@@ -52,7 +52,6 @@ router
     })
 
     .delete('/:id', (req, res, next) => {
-
         model.deleteItem(req.params.id)
             .then(x => {
                 const data = { data: x, isSuccess: true };

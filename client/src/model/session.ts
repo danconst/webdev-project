@@ -16,7 +16,8 @@ const session = reactive({
 export interface User {
   id?: number;
   name: string;
-  email?: string;
+  email: string;
+  password: string;
   photo?: string;
   dayWorkouts?: number;
   dayDist?: number;

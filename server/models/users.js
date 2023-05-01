@@ -1,7 +1,7 @@
-const data = require('../data/users.json');
-const { connect, ObjectId } = require('./mongo');
+const { connect, ObjectId } = require('./mongo');const model = require('../models/users');
+const COLLECTION_NAME = 'users'
 
-const COLLECTION_NAME = 'Users';
+const data = require('../data/users.json');
 
 async function collection() {
     const db = await connect();
