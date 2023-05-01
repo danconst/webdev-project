@@ -8,7 +8,7 @@ export interface Workout {
   id: string;
   userPhoto?: string;
   user: string;
-  date: Date;
+  date: string;
   workoutType: string;
   distance: number;
   duration: number;

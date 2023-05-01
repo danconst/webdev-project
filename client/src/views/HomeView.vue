@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from 'vue';
-import { RouterLink } from 'vue-router';
 import { useSession } from '@/model/session';
 const session = useSession();
 const isLoggedIn = ref(false);

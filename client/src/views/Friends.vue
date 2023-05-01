@@ -35,7 +35,7 @@
 
   const workouts = ref<Workout[]>([]);
   getWorkouts().then((data: DataListEnvelope<Workout>) => {
-    workouts.value = data.data;
+    workouts.value = data.data.reverse(); // Reverse the array
   });
 </script>
 
