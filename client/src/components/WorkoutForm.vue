@@ -65,13 +65,12 @@ import { useRoute } from "vue-router";
 import { addWorkout } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
+
 const session = useSession();
 const route = useRoute();
 
 const workout = ref<Workout>({} as Workout);
 const showForm = ref(false);
-
-
 
 const submitForm = () => {
   workout.value.user = session.user?.name ?? ''

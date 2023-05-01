@@ -22,10 +22,10 @@ some-other-header: with my very personal information
 "calories": "350"
 }
 ###
-DELETE http://localhost:{{port}}/api/v1/workouts/644f2695eac9fc98cdea6534
+DELETE http://localhost:{{port}}/api/v1/workouts/644ff1f53993226bb0638e1a
 
 ###
-GET http://localhost:{{port}}/api/v1/workouts/search/1
+GET http://localhost:{{port}}/api/v1/workouts/search/
 
 ###
 POST http://localhost:3070/api/v1/workouts/seed
