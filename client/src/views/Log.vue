@@ -40,20 +40,25 @@
 
 <script setup lang="ts">
 
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
 import type { Workout } from '@/model/workouts';
-import { addWorkout, getWorkouts } from '@/model/workouts';
+import { getWorkouts } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
 
 const workouts = ref<Workout[]>([]);
 const session = useSession();
 
-getWorkouts().then((data) => {
-    workouts.value = data.data;
-});
 const userWorkouts = computed(() => {
   return workouts.value.filter((workout) => workout.user === session.user?.name);
 });
+
+watchEffect(() => {
+  getWorkouts().then((data) => {
+    workouts.value = data.data;
+  });
+});
+
 </script>
+

@@ -1,4 +1,5 @@
-const API_URL = import.meta.env.VITE_API_URL ?? '/api/v1/';
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3070/api/v1/';
+console.log(API_URL)
 export function rest(url: string, data?: any, method?: string, headers?: any){
     return fetch(url, {
         method: method ?? (data ? 'POST' : 'GET'),
