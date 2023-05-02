@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const data = require('../data/users.json');
 const { connect, ObjectId } = require('./mongo');
 const model = require('../models/users');
+const { requireLogin } = require('../middleware/authorization');
 const COLLECTION_NAME = 'users'
 
 async function collection() {
