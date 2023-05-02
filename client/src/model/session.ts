@@ -1,7 +1,5 @@
-import { reactive } from "vue";
+import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
-import usersData from "../data/users.json";
-import type { Workout } from "./workouts";
 import * as myFetch from "./myFetch";
 const session = reactive({
   user: null as User | null,
@@ -16,23 +14,10 @@ const session = reactive({
 export interface User {
   id?: number;
   name: string;
-  email?: string;
+  email: string;
   password?: string;
   photo?: string;
-  dayWorkouts?: number;
-  dayDist?: number;
-  dayDur?: number;
-  dayPace?: number;
-  dayCal?: number;
-  weekDist?: number;
-  weekDur?: number;
-  weekPace?: number;
-  weekCal?: number;
-  allDist?: number;
-  allDur?: number;
-  allPace?: number;
-  allCal?: number;
-  recentWorkouts?: Workout[];
+  token?: string
 }
 
 export function useSession() {
@@ -40,37 +25,49 @@ export function useSession() {
 }
 
 
-export function useLogin(id: number) {
+
+export async function useLogin(email: string, password: string) {
   const router = useRouter();
-  const user = usersData.users.find((u) => u.id === id);
-  if (user) {
-    session.user = user;
-  } else {
-    console.error(`User not found with id ${id}`);
+  try {
+    const response = await api(`users/login`, {
+      email,
+      password,
+    });
+    session.user = response?.data?.user;
+    session.user!.token = response?.data?.token;  
+    router.push(session.redirectUrl ?? "/");
+    session.redirectUrl = null;
+  } catch (error) {
+    console.error(error);
+    if (typeof error === "string") {
+      session.messages.push({
+        msg: error,
+        type: "error",
+      });
+    } else if (error instanceof Error) {
+      session.messages.push({
+        msg: error.message ?? JSON.stringify(error),
+        type: "error",
+      });
+    }
   }
-  router.push(session.redirectUrl ?? "/");
-  session.redirectUrl = null;
 }
 
-export function userNames(){
-  return usersData.users.map(x=> x.name)
-};
-
-export function userEmails(){
-  return usersData.users.map(x=> x.email)
-};
-
-export function userPhotos(){
-  return usersData.users.map(x=> x.photo)
-};
-
-export function api(url: string, data?: any, method?: string, headers?: any)  {
+export function api(url: string, data?: any, method?: string, headers?: any) {
   session.isLoading = true;
+
+  if(session.user?.token){
+      headers = {
+          "Authorization": `Bearer ${session.user.token}`,
+          ...headers,
+      }
+  }
+
   return myFetch.api(url, data, method, headers)
       .catch(err => {
-          console.error(err);
+          console.error({err});
           session.messages.push({
-            msg: err.message  ?? JSON.stringify(err),
+              msg: err.message  ?? JSON.stringify(err),
               type: "error",
           })
       })

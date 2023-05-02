@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const data = require('../data/users.json');
 const { connect, ObjectId } = require('./mongo');
-const model = require('../models/users');
-const { requireLogin } = require('../middleware/authorization');
+const { env } = require('process')
+
 const COLLECTION_NAME = 'users'
 
 async function collection() {
@@ -67,7 +67,7 @@ async function search(searchTerm, page = 1, pageSize = 30) {
 
 async function seed() {
     const col = await collection();
-    const result = await col.insertMany(data.users);
+    const result = await col.insertMany(data);
     return result.insertedCount;
 }
 
@@ -82,11 +82,23 @@ async function login(email, password) {
     }
 
     const cleanUser = { ...user, password: undefined };
-    const token = await generateTokenAsync(cleanUser, process.env.JWT_SECRET, '1d');
+    const token = await generateTokenAsync(cleanUser, '1d');
 
     return { user: cleanUser, token };
 }
 
+async function getCurrentUser(req) {
+    const token = req.headers.authorization || req.cookies.jwt;
+    if (!token) {
+      return null;
+    }
+    try {
+      const user = await verifyTokenAsync(token);
+      return user;
+    } catch (error) {
+      return null;
+    }
+  }
 async function oAuthLogin(provider, accessToken) {
     // validate the access token
     // if valid, return the user
@@ -94,9 +106,9 @@ async function oAuthLogin(provider, accessToken) {
     // return the user
 }
 
-function generateTokenAsync(user, secret, expiresIn) {
+function generateTokenAsync(user, expiresIn) {
     return new Promise( (resolve, reject) => {
-        jwt.sign(user, secret, { expiresIn }, (err, token) => {
+        jwt.sign(user, process.env.JWT_SECRET ?? "", { expiresIn }, (err, token) => {
             if (err) {
                 reject(err);
             } else {
@@ -106,9 +118,9 @@ function generateTokenAsync(user, secret, expiresIn) {
     });
 }
 
-function verifyTokenAsync(token, secret) {
+function verifyTokenAsync(token) {
     return new Promise( (resolve, reject) => {
-        jwt.verify(token, secret, (err, user) => {
+        jwt.verify(token, process.env.JWT_SECRET ?? "", (err, user) => {
             if (err) {
                 reject(err);
             } else {
@@ -117,6 +129,9 @@ function verifyTokenAsync(token, secret) {
         });
     });
 }
+
+
+
 module.exports = {
     getAll,
     getById,
@@ -126,7 +141,8 @@ module.exports = {
     search,
     seed,
     login,
+    oAuthLogin,
     generateTokenAsync,
-    verifyTokenAsync
-
+    verifyTokenAsync,
+    getCurrentUser
 };

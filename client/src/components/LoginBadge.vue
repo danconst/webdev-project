@@ -27,13 +27,13 @@ const session = useSession();
       </div>
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a class="dropdown-item" @click="useLogin(1)">
+          <a class="dropdown-item" @click="useLogin('constand1@newpaltz.edu', 'dcon123')">
             Dan Constance
           </a>
-          <a class="dropdown-item" @click="useLogin(2)">
+          <a class="dropdown-item" @click="useLogin('fish@email.com', 'mrfishy123' )">
             Fish
           </a>
-          <a class="dropdown-item" @click="useLogin(3)">
+          <a class="dropdown-item" @click="useLogin('apple@email.com', 'appleaday123')">
             Apple
           </a>
         </div>
