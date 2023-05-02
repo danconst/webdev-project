@@ -1,14 +1,14 @@
 <template>
   <div class="has-text-centered">
     <div class="add-workout-container">
-      <a class="button is-info" @click="showForm = true">Add Workout</a>
+      <a class="button is-info" @click="init">Add Workout</a>
     </div>
-    <div v-if="showForm" class="modal is-active">
-      <div class="modal-background" @click="showForm = false"></div>
+    <div v-if="workout" class="modal is-active">
+      <div class="modal-background" @click="workout = null"></div>
       <div class="modal-card">
         <header class="modal-card-head">
           <p class="modal-card-title">Log Your Workout</p>
-          <button class="delete" @click="showForm = false"></button>
+          <button class="delete" @click="workout = null"></button>
         </header>
         <section class="modal-card-body">
           <form @submit.prevent="submitForm">
@@ -47,7 +47,7 @@
                 <button class="button is-link">Submit</button>
               </div>
               <div class="control">
-                <button class="button" @click="showForm = false">Cancel</button>
+                <button class="button" @click="workout = null">Cancel</button>
               </div>
             </div>
           </form>
@@ -66,16 +66,28 @@
   const session = useSession();
   const route = useRoute();
 
-  const workout = ref<Workout>({} as Workout);
-  const showForm = ref(false);
+  const workout = ref<Workout | null>();
 
+  const emit = defineEmits<{
+    (e: 'added', value: Workout ): void
+  }>()
+
+  function init(){
+    workout.value = {
+        date: new Date().toLocaleDateString(),
+        user: session.user?.name ?? '',
+        userPhoto: session.user?.photo ?? ''
+      } as Workout;
+  }
   const submitForm = () => {
-    workout.value.date = new Date().toLocaleDateString();
-    workout.value.user = session.user?.name ?? ''
-    workout.value.userPhoto = session.user?.photo ?? ''
-    addWorkout(workout.value).then((data) =>
-    console.log(data))
-    showForm.value = false;
+
+    addWorkout(workout.value!).then(result => {
+      
+      workout.value = null;
+
+      emit("added", result.data);
+
+    });
   };
 </script>
 

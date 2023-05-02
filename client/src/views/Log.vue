@@ -1,6 +1,6 @@
 <template>
   <div>
-    <WorkoutForm />
+    <WorkoutForm @added="added" />
     <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
       <div class = "columns is-centered">
@@ -59,6 +59,10 @@ watchEffect(() => {
     workouts.value = data.data;
   });
 });
+
+function added(value: Workout){
+  workouts.value.push(value)
+}
 
 </script>
 

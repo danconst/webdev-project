@@ -48,8 +48,9 @@ for (const user of usersData.users) {
   user.dayCal = 0;
 }
 
-export function addWorkout(workout: Workout): Promise<DataEnvelope<Workout>> {
-  return api('workouts', workout)
+export async function addWorkout(workout: Workout): Promise<DataEnvelope<Workout>> {
+  const result = await api('workouts', workout);
+  return result
 }
 
 
