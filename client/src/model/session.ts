@@ -1,5 +1,6 @@
 import { reactive, ref } from "vue";
 import { useRouter } from "vue-router";
+import type { DataEnvelope, DataListEnvelope } from "./myFetch";
 import * as myFetch from "./myFetch";
 const session = reactive({
   user: null as User | null,
@@ -17,7 +18,8 @@ export interface User {
   email: string;
   password?: string;
   photo?: string;
-  token?: string
+  token?: string;
+  role?: string;
 }
 
 export function useSession() {
@@ -74,4 +76,28 @@ export function api(url: string, data?: any, method?: string, headers?: any) {
       .finally(() => {
           session.isLoading = false;
       })
+}
+
+export async function getUsersInfo(): Promise<{ emails: string[], photos: string[], names: string[] }> {
+  const session = useSession();
+
+  if (!session.user || !session.user.token) {
+    throw new Error('Unauthorized');
+  }
+
+  const isAdmin = session.user.role?.includes('admin');
+
+  if (!isAdmin) {
+    throw new Error('Forbidden');
+  }
+
+  const { data } = await api('users', null, 'GET', {
+    Authorization: `Bearer ${session.user.token}`,
+  });
+
+  const emails = data.map((user: { email: any; }) => user.email);
+  const photos = data.map((user: { photo: any; }) => user.photo);
+  const names = data.map((user: { name: any; }) => user.name);
+
+  return { emails, photos, names };
 }

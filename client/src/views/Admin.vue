@@ -1,5 +1,4 @@
 <template>
-  <body>
   <div class="container">
     <h1 class="title">All Users</h1>
     <table class="table is-fullwidth">
@@ -19,14 +18,15 @@
       </tbody>
     </table>
   </div>
-  </body>
 </template>
 
 <script setup lang="ts">
-import { userEmails, userNames, userPhotos } from "@/model/session";
-  const names = userNames();
-  const emails = userEmails();
-  const photos = userPhotos();
+import { getUsersInfo } from "@/model/session";
+
+const { names, emails, photos } = await getUsersInfo();
+console.log(names);
+console.log(emails);
+console.log(photos);
 </script>
 
 <style>
@@ -41,8 +41,26 @@ import { userEmails, userNames, userPhotos } from "@/model/session";
     object-fit: cover;
     border-radius: 50%;
   }
-  
 
-  
+  .table {
+    border-collapse: collapse;
+    width: 100%;
+  }
 
+  .table th,
+  .table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
+  .table td {
+    font-size: 16px;
+    color: #666;
+  }
 </style>
