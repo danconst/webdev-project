@@ -31,7 +31,7 @@ GET http://localhost:{{port}}/api/v1/workouts/search/
 GET http://localhost:3070/api/v1/users
 
 ###
-DELETE http://localhost:{{port}}/api/v1/users/645040b06a7fec56da99294f
+DELETE http://localhost:{{port}}/api/v1/users/645040e42f302d649416d558
 
 
 ###
