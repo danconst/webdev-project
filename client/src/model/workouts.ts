@@ -29,9 +29,3 @@ export async function addWorkout(workout: Workout): Promise<DataEnvelope<Workout
 export function getWorkouts(): Promise<DataListEnvelope<Workout>> {  
   return api('workouts');
 }
-
-export function getWorkout(id: number): Promise<DataEnvelope<Workout>> {
-
-  return api(`workouts/${id}`)
-
-}

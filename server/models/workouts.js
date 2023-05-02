@@ -77,5 +77,5 @@ module.exports = {
     update,
     deleteItem,
     search,
-    seed
+    seed,
 };
