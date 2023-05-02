@@ -1,26 +1,37 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, watch, computed, watchEffect } from 'vue';
 import { useSession } from '@/model/session';
+import type { Workout } from '@/model/workouts';
+import { getWorkouts } from '@/model/workouts';
+
 const session = useSession();
 const isLoggedIn = ref(false);
+const workouts = ref<Workout[]>([]);
+let userWorkouts = [];
 
 function isUserLoggedIn() {
   const session = useSession();
   isLoggedIn.value = !!session.user;
 }
 
-onMounted(() => {
-  const x = document.getElementById("loginDiv");
-  if (x) {
-    isUserLoggedIn();
-    if (isLoggedIn.value) {
-      x.style.display = "none";
-    }
-  }
-});
+isUserLoggedIn();
 
 watch(session, (newValue, oldValue) => {
   isLoggedIn.value = !!newValue.user;
+  workouts.value = []; // Clear the workouts array when the user changes
+});
+
+
+watchEffect(() => {
+  if (isLoggedIn.value) {
+    getWorkouts().then((data) => {
+      workouts.value = data.data;
+      userWorkouts = workouts.value.filter((workout) => workout.user === session.user?.name);
+      console.log(userWorkouts);
+      const totalDistance = userWorkouts.reduce((acc, workout) => acc + workout.distance, 0);
+      console.log(totalDistance);
+    });
+  }
 });
 </script>
 
@@ -36,24 +47,24 @@ watch(session, (newValue, oldValue) => {
     <div class = "columns mt-5" v-if = "isLoggedIn">
         <div class = "column" >
           <h2 class = "subtitle"><center>Today's Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{session.user?.dayDist}} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{session.user?.dayDur}} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.dayPace}} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{session.user?.dayCal}}</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{}} feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{}} minutes</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{}} ft/min</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{}}</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>Weekly Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{session.user?.weekDist}} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{ session.user?.weekDur }} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.weekPace}} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ session.user?.weekCal }}</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{ }} feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{  }} minutes</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{ }} ft/min</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{  }}</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>All Time Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{ session.user?.allDist }} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{ session.user?.allDur }} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{session.user?.allPace}} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ session.user?.allCal }}</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{  }} feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{  }} minutes</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{}} ft/min</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{  }}</center></h2>
         </div>
     </div>
     </body>

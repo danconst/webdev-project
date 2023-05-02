@@ -48,7 +48,7 @@
         "email": "apple@email.com",
         "password": "appleaday123",
         "photo": "https://illustoon.com/photo/7156.png",
-        "role": "admin",
+        "role": "user",
         "dayDist": 0,
         "dayDur": 0,
         "dayayPace": 0,

@@ -78,6 +78,8 @@ export function api(url: string, data?: any, method?: string, headers?: any) {
       })
 }
 
+
+
 export async function getUsersInfo(): Promise<{ emails: string[], photos: string[], names: string[] }> {
   const session = useSession();
 
