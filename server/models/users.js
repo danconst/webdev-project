@@ -4,8 +4,6 @@ const { connect, ObjectId } = require('./mongo');
 const model = require('../models/users');
 const COLLECTION_NAME = 'users'
 
-const data = require('../data/users.json');
-
 async function collection() {
     const db = await connect();
     return db.collection(COLLECTION_NAME);
@@ -72,16 +70,27 @@ async function seed() {
     return result.insertedCount;
 }
 
-async function login(id){
+async function login(email, password) {
     const col = await collection();
-    const user = await col.findOne({ id });
-    if(!user){
-        throw new Error('User not found')
+    const user = await col.findOne({ email });
+    if (!user) {
+        throw new Error('User not found');
     }
-    const cleanuser = { ...user }
-    const token = await generateTokenAsync(cleanuser, process.env.JWT_SECRET, 'ld')
+    if (user.password !== password) {
+        throw new Error('Invalid password');
+    }
 
-    return { user: cleanuser, token}
+    const cleanUser = { ...user, password: undefined };
+    const token = await generateTokenAsync(cleanUser, process.env.JWT_SECRET, '1d');
+
+    return { user: cleanUser, token };
+}
+
+async function oAuthLogin(provider, accessToken) {
+    // validate the access token
+    // if valid, return the user
+    // if not, create a new user
+    // return the user
 }
 
 function generateTokenAsync(user, secret, expiresIn) {
@@ -107,7 +116,6 @@ function verifyTokenAsync(token, secret) {
         });
     });
 }
-
 module.exports = {
     getAll,
     getById,
