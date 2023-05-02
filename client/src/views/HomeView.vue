@@ -64,16 +64,36 @@ watchEffect(() => {
       //DAILY
       const currentDate = new Date().toLocaleDateString();
       const dailyWorkouts = userWorkouts.filter(workout => workout.date === currentDate);
-      const ddistances = userWorkouts.map((workout) => Number(workout.distance));
+      const ddistances = dailyWorkouts.map((workout) => Number(workout.distance));
       dailyDistance.value = ddistances.reduce((total, distance) => total + distance, 0); 
 
-      const ddurations = userWorkouts.map((workout) => Number(workout.duration));
+      const ddurations = dailyWorkouts.map((workout) => Number(workout.duration));
       dailyDuration.value = ddurations.reduce((total, duration) => total + duration, 0)
 
-      const dcaloriesArr = userWorkouts.map((workout) => Number(workout.calories));
+      const dcaloriesArr = dailyWorkouts.map((workout) => Number(workout.calories));
       dailyCalories.value = dcaloriesArr.reduce((total, calories) => total + calories, 0)
 
       dailyAvgPace.value = dailyDistance.value / dailyDuration.value
+
+      //WEEKLY
+      const weekStart = new Date();
+      weekStart.setDate(weekStart.getDate() - weekStart.getDay()); 
+      const weekEnd = new Date();
+      weekEnd.setDate(weekEnd.getDate() + (6 - weekEnd.getDay())); 
+      const weeklyWorkouts = userWorkouts.filter(workout => {
+      const workoutDate = new Date(workout.date);
+      return workoutDate >= weekStart && workoutDate <= weekEnd;
+    });
+      const wdistances = weeklyWorkouts.map(workout => Number(workout.distance));
+      weeklyDistance.value = wdistances.reduce((total, distance) => total + distance, 0);
+
+      const wdurations = weeklyWorkouts.map(workout => Number(workout.duration));
+      weeklyDuration.value = wdurations.reduce((total, duration) => total + duration, 0);
+
+      const wcaloriesArr = weeklyWorkouts.map(workout => Number(workout.calories));
+      weeklyCalories.value = wcaloriesArr.reduce((total, calories) => total + calories, 0);
+
+      weeklyAvgPace.value = weeklyDistance.value / weeklyDuration.value;
     });
   }
 });
@@ -91,17 +111,17 @@ watchEffect(() => {
     <div class = "columns mt-5" v-if = "isLoggedIn">
         <div class = "column" >
           <h2 class = "subtitle"><center>Today's Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{}} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{}} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{}} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{}}</center></h2>
-        </div>
-        <div class = "column">
-          <h2 class = "subtitle"><center>Weekly Stats</center></h2>
           <h2 class = "mt-2"><center>Distance: {{ dailyDistance }} feet</center></h2>
           <h2 class = "mt-2"><center>Duration: {{ dailyDuration }} minutes</center></h2>
           <h2 class = "mt-2"><center>AVG Pace: {{ dailyAvgPace }} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ dailyCalories }}</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{ dailyCalories}}</center></h2>
+        </div>
+        <div class = "column">
+          <h2 class = "subtitle"><center>Weekly Stats</center></h2>
+          <h2 class = "mt-2"><center>Distance: {{ weeklyDistance }} feet</center></h2>
+          <h2 class = "mt-2"><center>Duration: {{ weeklyDuration }} minutes</center></h2>
+          <h2 class = "mt-2"><center>AVG Pace: {{ weeklyAvgPace }} ft/min</center></h2>
+          <h2 class = "mt-2"><center>Calories: {{ weeklyCalories }}</center></h2>
         </div>
         <div class = "column">
           <h2 class = "subtitle"><center>All Time Stats</center></h2>
