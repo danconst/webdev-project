@@ -29,13 +29,20 @@ some-other-header: with my very personal information
 ###
 GET http://localhost:{{port}}/api/v1/workouts
 ###
-DELETE http://localhost:{{port}}/api/v1/workouts/645289ae118dec1938bf749f
+DELETE http://localhost:{{port}}/api/v1/workouts/6452beb786440e9c2b8c771f
 
 ###
 GET http://localhost:{{port}}/api/v1/workouts/search/
 
 ###
 GET http://localhost:{{port}}/api/v1/users
+
+
+###
+GET http://localhost:{{port}}/api/v1/meals
+
+###
+POST http://localhost:{{port}}/api/v1/meals/seed
 
 ###
 GET http://localhost:{{port}}/api/v1/users/search/constand1@newpaltz.edu
@@ -44,7 +51,7 @@ GET http://localhost:{{port}}/api/v1/users/search/constand1@newpaltz.edu
 POST http://localhost:{{port}}/api/v1/workouts/seed
 
 ###
-DELETE http://localhost:{{port}}/api/v1/users/64511b5c97e964492d104fe5
+DELETE http://localhost:{{port}}/api/v1/users/64528f4686440e9c2b8c771c
 
 
 
