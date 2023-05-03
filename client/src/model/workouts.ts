@@ -1,7 +1,6 @@
 import { ref } from 'vue';
 import { useSession } from './session';
 import { api } from "./session";
-import usersData from '../data/users.json';
 import type { DataEnvelope, DataListEnvelope } from "./myFetch";
 
 export interface Workout {

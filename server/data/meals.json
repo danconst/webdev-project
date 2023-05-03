@@ -1,0 +1,22 @@
+{
+    "meals": [
+      {
+        "user": "Dan Constance",
+        "date": "3/15/2023",
+        "calories": "350",
+        "food": "Apple"
+      },
+      {
+        "user": "Fish",
+        "date": "3/15/2023",
+        "calories": "600",
+        "food": "Sandwich"
+      },
+      {
+        "user": "Apple",
+        "date": "3/15/2023",
+        "calories": "700",
+        "food": "Soup"
+      }
+    ]
+  }

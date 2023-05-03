@@ -29,8 +29,7 @@ export function useSession() {
 
 
 export async function useLogin(email: string, password: string) {
-  const router = useRouter();
-  try {
+    const router = useRouter();
     const response = await api(`users/login`, {
       email,
       password,
@@ -39,21 +38,8 @@ export async function useLogin(email: string, password: string) {
     session.user!.token = response?.data?.token;  
     router.push(session.redirectUrl ?? "/");
     session.redirectUrl = null;
-  } catch (error) {
-    console.error(error);
-    if (typeof error === "string") {
-      session.messages.push({
-        msg: error,
-        type: "error",
-      });
-    } else if (error instanceof Error) {
-      session.messages.push({
-        msg: error.message ?? JSON.stringify(error),
-        type: "error",
-      });
-    }
-  }
-}
+  } 
+
 
 export function api(url: string, data?: any, method?: string, headers?: any) {
   session.isLoading = true;

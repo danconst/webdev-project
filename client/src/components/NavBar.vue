@@ -29,7 +29,7 @@ import LoginBadge from './LoginBadge.vue';
           <div class="navbar-start">
 
             <RouterLink to="/" class="navbar-item"><i class="fa-solid fa-house"></i> Home </RouterLink>
-            <RouterLink to="/statistics" class="navbar-item"><i class="fa-solid fa-chart-line"></i>Statistics</RouterLink>
+            <RouterLink to="/meals" class="navbar-item"><i class="fa-solid fa-apple-whole"></i>Meals</RouterLink>
             <RouterLink to="/log" class="navbar-item"><i class="fa-solid fa-rectangle-list"></i>Log</RouterLink>
             <RouterLink to = "/friends" class ="navbar-item"><i class="fa-solid fa-user-group"></i>Friend Activity</RouterLink>
             <RouterLink to = "/admin" class="navbar-item"><i class="fa-solid fa-wrench"></i>Admin</RouterLink>

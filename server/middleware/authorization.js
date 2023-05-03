@@ -12,13 +12,20 @@ module.exports = {
                     next({ code: 401, message: err });
                 });
         }else{
-            req.user = { role: 'user' };
             next();
         }
     },
     requireLogin(requireAdmin = false) {
         return (req, res, next) => {
-            next();
+            if (req.user) {
+                if (req.user.role !== 'admin' && !requireAdmin) {
+                    next({ code: 403, message: 'This resource is admin only' });
+                } else {
+                    next();
+                }
+            } else {
+                next({ code: 401, message: 'You must be logged in to access this resource' });
+            }
         };
     }
-};
+}

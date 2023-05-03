@@ -17,9 +17,9 @@ const router = createRouter({
       component: LoginPageVue
     },
     {
-      path: '/statistics',
-      name: 'statistics',
-      component: () => import('../views/StatisticsView.vue'),
+      path: '/meals',
+      name: 'meals',
+      component: () => import('../views/Meals.vue'),
       beforeEnter: secureRoute
     },
     {

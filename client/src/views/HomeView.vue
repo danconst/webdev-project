@@ -56,7 +56,7 @@ watchEffect(() => {
 
       
 
-
+    
       //TOTALS
      
       const distances = userWorkouts.map((workout) => Number(workout.distance));
