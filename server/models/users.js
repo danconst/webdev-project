@@ -74,8 +74,10 @@ async function seed() {
 async function login(email, password) {
     const col = await collection();
     const user = await col.findOne({ email });
+    console.log(user)
     if (!user) {
         throw new Error('User not found');
+        console.log('not a user')
     }
     if (user.password !== password) {
         throw new Error('Invalid password');

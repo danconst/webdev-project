@@ -5,7 +5,7 @@ import usersData from '../data/users.json';
 import type { DataEnvelope, DataListEnvelope } from "./myFetch";
 
 export interface Workout {
-  id: string;
+  _id: string;
   userPhoto?: string;
   user: string;
   date: string;
@@ -28,4 +28,9 @@ export async function addWorkout(workout: Workout): Promise<DataEnvelope<Workout
 
 export function getWorkouts(): Promise<DataListEnvelope<Workout>> {  
   return api('workouts');
+}
+
+
+export function deleteWorkout(_id: string){
+  return api(`workouts/${_id}`, undefined, 'DELETE');
 }

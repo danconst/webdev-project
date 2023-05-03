@@ -16,15 +16,18 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(workout, index) in userWorkouts" :key="index">
-            <td>{{ workout.date }}</td>
-            <td>{{ workout.workoutType }}</td>
-            <td>{{ workout.distance }}</td>
-            <td>{{ workout.duration }}</td>
-            <td>{{ workout.pace }}</td>
-            <td>{{ workout.calories }}</td>
-          </tr>
-        </tbody>
+  <tr v-for="(workout, index) in userWorkouts" :key="index">
+    <td>{{ workout.date }}</td>
+    <td>{{ workout.workoutType }}</td>
+    <td>{{ workout.distance }}</td>
+    <td>{{ workout.duration }}</td>
+    <td>{{ workout.pace }}</td>
+    <td>{{ workout.calories }}</td>
+    <td>
+      <button class="button is-danger" @click="deleteItem(workout._id)">X</button>
+    </td>
+  </tr>
+</tbody>
       </table>
     </div>
     </div>
@@ -43,7 +46,7 @@
 import { computed, ref, watchEffect } from 'vue';
 import WorkoutForm from '../components/WorkoutForm.vue';
 import type { Workout } from '@/model/workouts';
-import { getWorkouts } from '@/model/workouts';
+import { getWorkouts, deleteWorkout } from '@/model/workouts';
 import { useSession } from '@/model/session';
 
 
@@ -54,6 +57,7 @@ const userWorkouts = computed(() => {
   return workouts.value.filter((workout) => workout.user === session.user?.name);
 });
 
+
 watchEffect(() => {
   getWorkouts().then((data) => {
     workouts.value = data.data;
@@ -62,6 +66,14 @@ watchEffect(() => {
 
 function added(value: Workout){
   workouts.value.push(value)
+}
+
+function deleteItem(id: string) {
+  deleteWorkout(id)
+    .then(() => {
+      workouts.value = workouts.value.filter((item) => item._id !== id);
+    })
+    .catch((err) => console.log(err));
 }
 
 </script>
