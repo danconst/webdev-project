@@ -26,7 +26,6 @@ const weeklyAvgPace = ref(0);
 
 
 function isUserLoggedIn() {
-  const session = useSession();
   isLoggedIn.value = !!session.user;
 }
 
