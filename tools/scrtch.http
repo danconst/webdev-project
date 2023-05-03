@@ -24,8 +24,12 @@ some-other-header: with my very personal information
 "pace": "352",
 "calories": "350"
 }
+
+
 ###
-DELETE http://localhost:{{port}}/api/v1/workouts/645019f8506c92fd78e18228
+GET http://localhost:{{port}}/api/v1/workouts
+###
+DELETE http://localhost:{{port}}/api/v1/workouts/645289ae118dec1938bf749f
 
 ###
 GET http://localhost:{{port}}/api/v1/workouts/search/
@@ -37,7 +41,7 @@ GET http://localhost:{{port}}/api/v1/users
 GET http://localhost:{{port}}/api/v1/users/search/constand1@newpaltz.edu
 
 ###
-POST http://localhost:{{port}}/api/v1/users/seed
+POST http://localhost:{{port}}/api/v1/workouts/seed
 
 ###
 DELETE http://localhost:{{port}}/api/v1/users/64511b5c97e964492d104fe5
