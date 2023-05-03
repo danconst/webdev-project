@@ -13,7 +13,7 @@
         <section class="modal-card-body">
           <form @submit.prevent="submitForm">
             <div class="field">
-              <label class="label">Distance (in km)</label>
+              <label class="label">Distance (in ft)</label>
               <div class="control">
                 <input class="input" type="number" v-model.number="workout.distance" required>
               </div>
