@@ -4,7 +4,6 @@ const path = require('path')
 const workouts = require('./controllers/workouts')
 const users = require('./controllers/users')
 const meals = require('./controllers/meals')
-
 const { requireLogin, parseAuthorizationHeader } = require('./middleware/authorization');
 const app = express()
 
@@ -32,8 +31,8 @@ app
     .get('/api/v1/', (req, res) => {
         res.send('Hello World! From Express')
     })
-    .use('/api/v1/workouts', workouts)
-    .use('/api/v1/users',  users)
+    .use('/api/v1/workouts', requireLogin(), workouts)
+    .use('/api/v1/users', users)
     .use('/api/v1/meals', meals)
     
 app.get('*', (req, res) => {
