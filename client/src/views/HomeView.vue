@@ -24,6 +24,11 @@ const weeklyDuration = ref(0);
 const weeklyCalories = ref(0);
 const weeklyAvgPace = ref(0);
 
+const averageDistance = ref(0);
+const averageCalories = ref(0);
+const averageDuration = ref(0);
+const averagePace = ref(0);
+
 
 function isUserLoggedIn() {
   isLoggedIn.value = !!session.user;
@@ -36,29 +41,38 @@ watch(session, (newValue, oldValue) => {
   workouts.value = []; 
 });
 
+
+
+
 watchEffect(() => {
   if (isLoggedIn.value) {
     getWorkouts().then((data) => {
 
 
       workouts.value = data.data;
+      let userWorkouts: Workout[] = [];
       userWorkouts = workouts.value.filter((workout) => workout.user === session.user?.name);
       console.log(userWorkouts);
+
+      
 
 
       //TOTALS
      
       const distances = userWorkouts.map((workout) => Number(workout.distance));
-      totalDistance.value = distances.reduce((total, distance) => total + distance, 0); 
+      totalDistance.value = distances.reduce((total, distance) => total + distance, 0);
+      averageDistance.value = totalDistance.value / userWorkouts.length;
 
       const durations = userWorkouts.map((workout) => Number(workout.duration));
       totalDuration.value = durations.reduce((total, duration) => total + duration, 0)
+      averageDuration.value = totalDuration.value / userWorkouts.length;
 
       const caloriesArr = userWorkouts.map((workout) => Number(workout.calories));
       totalCalories.value = caloriesArr.reduce((total, calories) => total + calories, 0)
-      console.log(totalDistance.value)
+      averageCalories.value = totalCalories.value / userWorkouts.length;
 
       avgPace.value = totalDistance.value / totalDuration.value
+      averagePace.value = totalDistance.value
 
       //DAILY
       const currentDate = new Date().toLocaleDateString();
@@ -94,44 +108,110 @@ watchEffect(() => {
 
       weeklyAvgPace.value = weeklyDistance.value / weeklyDuration.value;
     });
+
+    
+
   }
 });
 </script>
 
 <template>
   <body>
-  <main>
-    <h1><font size="100px"><center>Welcome to FitnessPal!</center></font></h1>
-    <div id="loginDiv">
-      <h2 class="subtitle" v-if="!isLoggedIn"><center>Please Log In to View Your Stats</center></h2>
-    </div>
-  </main>
-    <h2 class = "subtitle" v-if = "isLoggedIn"><center>Hello, {{ session.user?.name }}</center> </h2>
-    <div class = "columns mt-5" v-if = "isLoggedIn">
-        <div class = "column" >
-          <h2 class = "subtitle"><center>Today's Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{ dailyDistance }} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{ dailyDuration }} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{ dailyAvgPace }} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ dailyCalories}}</center></h2>
+    <main>
+      <h1 class="title is-1 has-text-centered">Welcome to FitnessPal!</h1>
+      <div id="loginDiv" v-if="!isLoggedIn">
+        <h2 class="subtitle has-text-centered">Please Log In to View Your Stats</h2>
+      </div>
+      <div class="columns mt-5" v-if="isLoggedIn">
+        <div class="column">
+          <div class="card">
+            <header class="card-header">
+              <h2 class="card-header-title subtitle is-4 has-text-centered">
+                Today's Stats
+              </h2>
+            </header>
+            <div class="card-content">
+              <div class="content has-text-centered">
+                  <p class="subtitle is-5">Distance: {{ dailyDistance }} feet
+                    <span v-if="dailyDistance < averageDistance" style="color:red;">&#8595;</span>
+                    <span v-else style="color:green;">&#8593;</span>
+                  </p>
+                  <p class="subtitle is-5">Duration: {{ dailyDuration }} minutes
+                    <span v-if="dailyDuration < averageDuration" style="color:red;">&#8595;</span>
+                    <span v-else style="color:green;">&#8593;</span>
+                  </p>
+                <p class="subtitle is-5">AVG Pace: {{ dailyAvgPace }} ft/min</p>
+                <p class="subtitle is-5">Calories Burnt: {{ dailyCalories }}
+                  <span v-if="dailyCalories < averageCalories" style="color:red;">&#8595;</span>
+                  <span v-else style="color:green;">&#8593;</span>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class = "column">
-          <h2 class = "subtitle"><center>Weekly Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{ weeklyDistance }} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{ weeklyDuration }} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{ weeklyAvgPace }} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ weeklyCalories }}</center></h2>
+        <div class="column">
+          <div class="card ">
+            <header class="card-header">
+              <h2 class="card-header-title subtitle is-4 has-text-centered">
+                Weekly Stats
+              </h2>
+            </header>
+            <div class="card-content">
+              <div class="content has-text-centered">
+                <p class="subtitle is-5">Distance: {{ weeklyDistance }} feet</p>
+                <p class="subtitle is-5">Duration: {{ weeklyDuration }} minutes</p>
+                <p class="subtitle is-5">AVG Pace: {{ weeklyAvgPace }} ft/min</p>
+                <p class="subtitle is-5">Calories Burnt: {{ weeklyCalories }}</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class = "column">
-          <h2 class = "subtitle"><center>All Time Stats</center></h2>
-          <h2 class = "mt-2"><center>Distance: {{ totalDistance }} feet</center></h2>
-          <h2 class = "mt-2"><center>Duration: {{ totalDuration }} minutes</center></h2>
-          <h2 class = "mt-2"><center>AVG Pace: {{ avgPace }} ft/min</center></h2>
-          <h2 class = "mt-2"><center>Calories: {{ totalCalories }}</center></h2>
+        <div class="column">
+          <div class="card ">
+            <header class="card-header">
+              <h2 class="card-header-title subtitle is-4 has-text-centered">
+                All Time Stats
+              </h2>
+            </header>
+            <div class="card-content">
+              <div class="content has-text-centered">
+                <p class="subtitle is-5">Distance: {{ totalDistance }} feet</p>
+                <p class="subtitle is-5">Duration: {{ totalDuration }} minutes</p>
+                <p class="subtitle is-5">AVG Pace: {{ avgPace }} ft/min</p>
+                <p class="subtitle is-5">Calories Burnt: {{ totalCalories }}</p>
+              </div>
+            </div>
+          </div>
         </div>
-    </div>
-    </body>
+      </div>
+      <div class="columns mt-5" v-if="isLoggedIn">
+        <div class="column">
+          <div class="card">
+            <header class="card-header">
+              <h2 class="card-header-title subtitle is-4 has-text-centered">
+                Average Stats
+              </h2>
+            </header>
+            <div class="card-content">
+              <div class="content has-text-centered">
+                <p class="subtitle is-5">Average Distance: {{ averageDistance }} feet</p>
+                <p class="subtitle is-5">Average Duration: {{ averageDuration }} minutes</p>
+                <p class="subtitle is-5">Average Calories Burnt: {{ averageCalories }}</p>
+                <p class="subtitle is-5">Average Pace: {{ averagePace }}</p>
+              </div>
+            </div>
+          </div>  
+        </div>
+      </div>  
+    </main>
+  </body>
 </template>
+
+<style>
+  .column {
+    padding: 10px;
+  }
+</style>
 <style>
   .column {
     border: 1px solid #ccc;
