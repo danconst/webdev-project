@@ -8,7 +8,7 @@ const { requireLogin, parseAuthorizationHeader } = require('./middleware/authori
 const app = express()
 
 const hostname = 'https://webdev-project-7dev.onrender.com';
-const port = process.env.PORT || 3070;
+const port = process.env.PORT || 10000;
 
 app
     .use(express.json())
