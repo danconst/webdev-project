@@ -132,7 +132,7 @@ watchEffect(() => {
             </header>
             <div class="card-content">
               <div class="content has-text-centered">
-                  <p class="subtitle is-5">Distance: {{ dailyDistance }} feet
+                  <p class="subtitle is-5">Distance: {{ dailyDistance }} km
                     <span v-if="dailyDistance < averageDistance" style="color:red;">&#8595;</span>
                     <span v-else style="color:green;">&#8593;</span>
                   </p>
@@ -140,7 +140,7 @@ watchEffect(() => {
                     <span v-if="dailyDuration < averageDuration" style="color:red;">&#8595;</span>
                     <span v-else style="color:green;">&#8593;</span>
                   </p>
-                <p class="subtitle is-5">AVG Pace: {{ dailyAvgPace }} ft/min</p>
+                <p class="subtitle is-5">AVG Pace: {{ dailyAvgPace }} km/min</p>
                 <p class="subtitle is-5">Calories Burnt: {{ dailyCalories }}
                   <span v-if="dailyCalories < averageCalories" style="color:red;">&#8595;</span>
                   <span v-else style="color:green;">&#8593;</span>
@@ -158,9 +158,9 @@ watchEffect(() => {
             </header>
             <div class="card-content">
               <div class="content has-text-centered">
-                <p class="subtitle is-5">Distance: {{ weeklyDistance }} feet</p>
+                <p class="subtitle is-5">Distance: {{ weeklyDistance }} km</p>
                 <p class="subtitle is-5">Duration: {{ weeklyDuration }} minutes</p>
-                <p class="subtitle is-5">AVG Pace: {{ weeklyAvgPace }} ft/min</p>
+                <p class="subtitle is-5">AVG Pace: {{ weeklyAvgPace }} km/min</p>
                 <p class="subtitle is-5">Calories Burnt: {{ weeklyCalories }}</p>
               </div>
             </div>
@@ -175,9 +175,9 @@ watchEffect(() => {
             </header>
             <div class="card-content">
               <div class="content has-text-centered">
-                <p class="subtitle is-5">Distance: {{ totalDistance }} feet</p>
+                <p class="subtitle is-5">Distance: {{ totalDistance }} km</p>
                 <p class="subtitle is-5">Duration: {{ totalDuration }} minutes</p>
-                <p class="subtitle is-5">AVG Pace: {{ avgPace }} ft/min</p>
+                <p class="subtitle is-5">AVG Pace: {{ avgPace }} km/min</p>
                 <p class="subtitle is-5">Calories Burnt: {{ totalCalories }}</p>
               </div>
             </div>
@@ -194,10 +194,10 @@ watchEffect(() => {
             </header>
             <div class="card-content">
               <div class="content has-text-centered">
-                <p class="subtitle is-5">Average Distance: {{ averageDistance }} feet</p>
+                <p class="subtitle is-5">Average Distance: {{ averageDistance }} km</p>
                 <p class="subtitle is-5">Average Duration: {{ averageDuration }} minutes</p>
                 <p class="subtitle is-5">Average Calories Burnt: {{ averageCalories }}</p>
-                <p class="subtitle is-5">Average Pace: {{ averagePace }}</p>
+                <p class="subtitle is-5">Average Pace: {{ averagePace }} km/min</p>
               </div>
             </div>
           </div>  

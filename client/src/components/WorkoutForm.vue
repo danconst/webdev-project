@@ -31,7 +31,7 @@
               </div>
             </div>
             <div class="field">
-              <label class="label">Pace (in ft/min)</label>
+              <label class="label">Pace (in km/min)</label>
               <div class="control">
                 <input class="input" type="number" v-model.number="workout.pace" required>
               </div>
