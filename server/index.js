@@ -7,7 +7,7 @@ const meals = require('./controllers/meals')
 const { requireLogin, parseAuthorizationHeader } = require('./middleware/authorization');
 const app = express()
 
-const hostname = '127.0.0.1';
+const hostname = 'https://webdev-project-7dev.onrender.com';
 const port = process.env.PORT || 3070;
 
 app
