@@ -7,8 +7,8 @@ const meals = require('./controllers/meals')
 const { requireLogin, parseAuthorizationHeader } = require('./middleware/authorization');
 const app = express()
 
-const hostname = 'https://webdev-project-7dev.onrender.com';
-const port = process.env.PORT || 10000;
+const hostname = 'localhost';
+const port = process.env.PORT || 3070;
 
 app
     .use(express.json())
@@ -31,7 +31,7 @@ app
     .get('/api/v1/', (req, res) => {
         res.send('Hello World! From Express')
     })
-    .use('/api/v1/workouts', workouts)
+    .use('/api/v1/workouts', requireLogin(), workouts)
     .use('/api/v1/users', users)
     .use('/api/v1/meals', meals)
     
