@@ -15,9 +15,9 @@
             <div class="media-content">
               <p><strong>Date:</strong> {{ workout.date }}</p>
               <p><strong>Workout Type:</strong> {{ workout.workoutType }}</p>
-              <p><strong>Distance:</strong> {{ workout.distance }} ft</p>
+              <p><strong>Distance:</strong> {{ workout.distance }} km</p>
               <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
-              <p><strong>Pace:</strong> {{ workout.pace }} ft/min</p>
+              <p><strong>Pace:</strong> {{ workout.pace }} km/min</p>
               <p><strong>Calories:</strong> {{ workout.calories }}</p>
             </div>
           </div>
