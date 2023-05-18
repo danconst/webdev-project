@@ -44,10 +44,23 @@
             </div>
             <div class="field">
               <label class="label">Worked Out With</label>
-                <div class="control">
-                <input class="input" type="text" v-model="workout.workedOutWith" autocomplete="off" @input="handleUserAutocomplete" />
+              <div class="control">
+                <input
+                  class="input"
+                  type="text"
+                  v-model="workout.workedOutWith"
+                  autocomplete="off"
+                  @input="handleUserAutocomplete"
+                  @keydown="handleUserAutocompleteKeydown"
+                />
                 <ul v-if="showAutocomplete" class="autocomplete-list">
-                  <li v-for="user in autocompleteUsers" @click="selectUser(user)">{{ user }}</li>
+                  <li
+                    v-for="(user, index) in autocompleteUsers"
+                    :key="index"
+                    :class="{ selected: index === selectedUserIndex }"
+                    @click="selectUser(user)"
+                    @mouseenter="selectedUserIndex = index"
+                  >{{ user }}</li>
                 </ul>
               </div>
             </div>
@@ -72,38 +85,32 @@
   import { addWorkout } from "@/model/workouts";
   import { useSession, getUserNames } from "@/model/session";
 
-
   const session = useSession();
   const route = useRoute();
 
   const workout = ref<Workout | null>();
   const showAutocomplete = ref(false);
   const autocompleteUsers = ref<string[]>([]);
-  const selectedUser = ref<string | null>(null);
-
+  const selectedUserIndex = ref(-1);
 
   const emit = defineEmits<{
-    (e: 'added', value: Workout ): void
-  }>()
+    (e: "added", value: Workout): void;
+  }>();
 
-  function init(){
+  function init() {
     workout.value = {
-        date: new Date().toLocaleDateString(),
-        user: session.user?.name ?? '',
-        userPhoto: session.user?.photo ?? ''
-      } as Workout;
+      date: new Date().toLocaleDateString(),
+      user: session.user?.name ?? "",
+      userPhoto: session.user?.photo ?? "",
+    } as Workout;
   }
+
   const submitForm = () => {
-
-    addWorkout(workout.value!).then(result => {
-      
+    addWorkout(workout.value!).then((result) => {
       workout.value = null;
-
       emit("added", result.data);
-
     });
   };
-
 
   async function handleUserAutocomplete() {
     const searchTerm = workout.value?.workedOutWith ?? "";
@@ -115,20 +122,41 @@
           name.toLowerCase().includes(searchTerm.toLowerCase())
         );
         showAutocomplete.value = true;
+        selectedUserIndex.value = -1;
       } catch (error) {
         console.error(error);
       }
     } else {
       autocompleteUsers.value = [];
       showAutocomplete.value = false;
+      selectedUserIndex.value = -1;
+    }
+  }
+
+  function handleUserAutocompleteKeydown(event: KeyboardEvent) {
+    if (event.key === "ArrowUp") {
+      event.preventDefault();
+      if (selectedUserIndex.value > 0) {
+        selectedUserIndex.value--;
+      }
+    } else if (event.key === "ArrowDown") {
+      event.preventDefault();
+      if (selectedUserIndex.value < autocompleteUsers.value.length - 1) {
+        selectedUserIndex.value++;
+      }
+    } else if (event.key === "Enter") {
+      event.preventDefault();
+      if (selectedUserIndex.value !== -1) {
+        selectUser(autocompleteUsers.value[selectedUserIndex.value]);
+      }
     }
   }
 
   function selectUser(user: string) {
     workout.value!.workedOutWith = user;
     showAutocomplete.value = false;
+    selectedUserIndex.value = -1;
   }
-  
 </script>
 
 <style>
@@ -147,7 +175,8 @@
     cursor: pointer;
   }
 
-  .autocomplete-list li:hover {
+  .autocomplete-list li:hover,
+  .autocomplete-list li.selected {
     background-color: #f2f2f2;
   }
 </style>
