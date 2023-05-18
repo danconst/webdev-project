@@ -111,27 +111,26 @@
       emit("added", result.data);
     });
   };
-
   async function handleUserAutocomplete() {
-    const searchTerm = workout.value?.workedOutWith ?? "";
+  const searchTerm = workout.value?.workedOutWith ?? "";
 
-    if (searchTerm.length >= 2) {
-      try {
-        const names = await getUserNames();
-        autocompleteUsers.value = names.filter((name) =>
-          name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-        showAutocomplete.value = true;
-        selectedUserIndex.value = -1;
-      } catch (error) {
-        console.error(error);
-      }
-    } else {
-      autocompleteUsers.value = [];
-      showAutocomplete.value = false;
+  if (searchTerm.length > 0) { 
+    try {
+      const names = await getUserNames();
+      autocompleteUsers.value = names.filter((name) =>
+        name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      showAutocomplete.value = true;
       selectedUserIndex.value = -1;
+    } catch (error) {
+      console.error(error);
     }
+  } else {
+    autocompleteUsers.value = [];
+    showAutocomplete.value = false;
+    selectedUserIndex.value = -1;
   }
+}
 
   function handleUserAutocompleteKeydown(event: KeyboardEvent) {
     if (event.key === "ArrowUp") {
