@@ -1,4 +1,4 @@
-const API_URL = import.meta.env.VITE_API_URL ?? 'https://webdev-project-7dev.onrender.com/api/v1';
+const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3070/api/v1/';
 
 export function rest(url: string, data?: any, method?: string, headers?: any){
     const config: RequestInit = {
