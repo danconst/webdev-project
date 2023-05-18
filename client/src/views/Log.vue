@@ -3,43 +3,46 @@
     <WorkoutForm @added="added" />
     <div v-if="userWorkouts.length > 0">
       <h2 class="title is-2 has-text-centered">Workout Log</h2>
-      <div class = "columns is-centered">
-      <table class="table is-striped is-centered">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Type</th>
-            <th>Distance (km)</th>
-            <th>Duration (min)</th>
-            <th>Pace (min/km)</th>
-            <th>Calories Burnt</th>
-          </tr>
-        </thead>
-        <tbody>
-  <tr v-for="(workout, index) in userWorkouts" :key="index">
-    <td>{{ workout.date }}</td>
-    <td>{{ workout.workoutType }}</td>
-    <td>{{ workout.distance }}</td>
-    <td>{{ workout.duration }}</td>
-    <td>{{ workout.pace }}</td>
-    <td>{{ workout.calories }}</td>
-    <td>
-      <button class="button is-danger" @click="deleteItem(workout._id)">X</button>
-    </td>
-  </tr>
-</tbody>
-      </table>
+      <div class="columns is-centered">
+        <table class="table is-striped is-centered">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Distance (km)</th>
+              <th>Duration (min)</th>
+              <th>Pace (min/km)</th>
+              <th>Calories Burnt</th>
+              <th>Worked Out With</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(workout, index) in userWorkouts" :key="index">
+              <td>{{ workout.date }}</td>
+              <td>{{ workout.workoutType }}</td>
+              <td>{{ workout.distance }}</td>
+              <td>{{ workout.duration }}</td>
+              <td>{{ workout.pace }}</td>
+              <td>{{ workout.calories }}</td>
+              <td>{{ workout.workedOutWith }}</td> 
+              <td>
+                <button class="button is-danger" @click="deleteItem(workout._id)">X</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    </div>
+
     <div v-else>
-      <div class = "columns is-centered">
+      <div class="columns is-centered">
         <span></span>
-      <p class = "mt-3">No workouts logged yet.</p>
+        <p class="mt-3">No workouts logged yet.</p>
       </div>
     </div>
   </div>
 </template>
-
 
 <script setup lang="ts">
 

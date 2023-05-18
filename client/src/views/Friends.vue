@@ -19,6 +19,7 @@
               <p><strong>Duration:</strong> {{ workout.duration }} minutes</p>
               <p><strong>Pace:</strong> {{ workout.pace }} km/min</p>
               <p><strong>Calories:</strong> {{ workout.calories }}</p>
+              <p><strong>Worked out With:</strong> {{ workout.workedOutWith }}</p>
             </div>
           </div>
         </div>

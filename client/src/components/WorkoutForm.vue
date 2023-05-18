@@ -13,7 +13,7 @@
         <section class="modal-card-body">
           <form @submit.prevent="submitForm">
             <div class="field">
-              <label class="label">Distance (in ft)</label>
+              <label class="label">Distance (in km)</label>
               <div class="control">
                 <input class="input" type="number" v-model.number="workout.distance" required>
               </div>
@@ -44,7 +44,7 @@
             </div>
             <div class="field">
               <label class="label">Worked Out With</label>
-              <div class="control">
+                <div class="control">
                 <input class="input" type="text" v-model="workout.workedOutWith" autocomplete="off" @input="handleUserAutocomplete" />
                 <ul v-if="showAutocomplete" class="autocomplete-list">
                   <li v-for="user in autocompleteUsers" @click="selectUser(user)">{{ user }}</li>
@@ -132,7 +132,22 @@
 </script>
 
 <style>
-.add-workout-container {
-  margin-top: 10px;
-}
+  .autocomplete-list {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+  }
+
+  .autocomplete-list li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  .autocomplete-list li:hover {
+    background-color: #f2f2f2;
+  }
 </style>
