@@ -101,6 +101,12 @@ async function getCurrentUser(req) {
       return null;
     }
   }
+
+    async function getUserNames() {
+        const col = await collection();
+        const users = await col.find().project({ name: 1 }).toArray();
+        return users.map(user => user.name);
+    }
 async function oAuthLogin(provider, accessToken) {
     // validate the access token
     // if valid, return the user
@@ -146,5 +152,6 @@ module.exports = {
     oAuthLogin,
     generateTokenAsync,
     verifyTokenAsync,
-    getCurrentUser
+    getCurrentUser,
+    getUserNames
 };

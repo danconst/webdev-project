@@ -1,10 +1,9 @@
-import { ref } from 'vue';
-import { useSession } from './session';
 import { api } from "./session";
 import type { DataEnvelope, DataListEnvelope } from "./myFetch";
 
 export interface Workout {
   _id: string;
+  workedOutWith: string;
   userPhoto?: string;
   user: string;
   date: string;
@@ -14,9 +13,6 @@ export interface Workout {
   pace: number;
   calories: number;
 }
-
-const workouts = ref<Workout[]>([]);
-const session = useSession();
 
 
 export async function addWorkout(workout: Workout): Promise<DataEnvelope<Workout>> {

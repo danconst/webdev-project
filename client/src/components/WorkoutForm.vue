@@ -42,6 +42,15 @@
                 <input class="input" type="number" v-model.number="workout.calories" required>
               </div>
             </div>
+            <div class="field">
+              <label class="label">Worked Out With</label>
+              <div class="control">
+                <input class="input" type="text" v-model="workout.workedOutWith" autocomplete="off" @input="handleUserAutocomplete" />
+                <ul v-if="showAutocomplete" class="autocomplete-list">
+                  <li v-for="user in autocompleteUsers" @click="selectUser(user)">{{ user }}</li>
+                </ul>
+              </div>
+            </div>
             <div class="field is-grouped">
               <div class="control">
                 <button class="button is-link">Submit</button>
@@ -58,15 +67,20 @@
 </template>
 <script setup lang="ts">
   import type { Workout } from "@/model/workouts";
-  import { ref } from "vue";
+  import { ref, reactive } from "vue";
   import { useRoute } from "vue-router";
-  import { addWorkout } from '@/model/workouts';
-  import { useSession } from '@/model/session';
+  import { addWorkout } from "@/model/workouts";
+  import { useSession, getUserNames } from "@/model/session";
+
 
   const session = useSession();
   const route = useRoute();
 
   const workout = ref<Workout | null>();
+  const showAutocomplete = ref(false);
+  const autocompleteUsers = ref<string[]>([]);
+  const selectedUser = ref<string | null>(null);
+
 
   const emit = defineEmits<{
     (e: 'added', value: Workout ): void
@@ -89,6 +103,32 @@
 
     });
   };
+
+
+  async function handleUserAutocomplete() {
+    const searchTerm = workout.value?.workedOutWith ?? "";
+
+    if (searchTerm.length >= 2) {
+      try {
+        const names = await getUserNames();
+        autocompleteUsers.value = names.filter((name) =>
+          name.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        showAutocomplete.value = true;
+      } catch (error) {
+        console.error(error);
+      }
+    } else {
+      autocompleteUsers.value = [];
+      showAutocomplete.value = false;
+    }
+  }
+
+  function selectUser(user: string) {
+    workout.value!.workedOutWith = user;
+    showAutocomplete.value = false;
+  }
+  
 </script>
 
 <style>

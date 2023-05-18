@@ -89,3 +89,19 @@ export async function getUsersInfo(): Promise<{ emails: string[], photos: string
 
   return { emails, photos, names };
 }
+
+export async function getUserNames(): Promise<string[]> {
+  const session = useSession();
+
+  if (!session.user || !session.user.token) {
+    throw new Error('Unauthorized');
+  }
+
+  const { data } = await api('users', null, 'GET', {
+    Authorization: `Bearer ${session.user.token}`,
+  });
+
+  const names = data.map((user: { name: any }) => user.name);
+
+  return names;
+}
